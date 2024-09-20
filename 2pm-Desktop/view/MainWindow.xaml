@@ -92,6 +92,7 @@
                         <Image Source="/view/circle-xmark (1).png" />
                     </Button>
                     <Label x:Name="status" Content="" HorizontalAlignment="Center" Margin="0,363,0,0" VerticalAlignment="Top" Foreground="#FFA0A0A0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Ellipse x:Name="connectionStatus" Width="10" Height="10" Fill="Green" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" RenderTransformOrigin="0.528,0.569"/>
 
                     <!--<Button x:Name="HomeBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,16,260,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}">
                         <Image Source="/view/settings.png" />

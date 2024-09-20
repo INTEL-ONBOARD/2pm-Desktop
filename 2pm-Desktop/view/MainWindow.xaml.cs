@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.NetworkInformation;
 using System.Threading;
+using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace _2pm_Desktop
@@ -134,5 +138,96 @@ namespace _2pm_Desktop
                 _connectionCheckThread.Join(); 
             }
         }
+
+        private void txtChanged(object sender, TextChangedEventArgs e)
+        {
+            //statusLabel.Content = "Attempting to log in again. Please wait...";
+            status.Visibility = Visibility.Hidden;
+        }
+
+        private void txtChanged(object sender, RoutedEventArgs e)
+        {
+            //statusLabel.Content = "Attempting to log in again. Please wait...";
+            status.Visibility = Visibility.Hidden;
+        }
+
+
+        private async void login(object sender, RoutedEventArgs e)
+        {
+            status.Visibility = Visibility.Visible;
+            status.Content = "Checking credentials....";
+            //statusLabel.Visibility = Visibility.Visible;
+            // Assuming model.requestEngine.ValidUser() was intended to call ValidUser()
+            String une = uname.Text;
+            String pwdd = pwd.Password.ToString();
+            string loginResult = await model.requestEngine.logInUser(une, pwdd);
+
+            await Task.Delay(1000);
+            if (loginResult == "true")
+            {
+                loginScreen.Visibility = Visibility.Hidden;
+                status.Content = "";
+                homeScreen.Visibility = Visibility.Visible;
+                //homePane.Visibility = Visibility.Visible;
+                //attendencePane.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                status.Content = "Login failed.Please try again.";
+                status.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void clickExit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        //private async void logout(object sender, RoutedEventArgs e)
+        //{
+        //    string logoutResult = await model.requestEngine.logOutUser();
+
+        //    if (logoutResult == "true")
+        //    {
+        //        uname.Text = "";
+        //        pwd.Clear();
+
+        //        panelView.Children.Clear();
+        //        if ((pause.Visibility == Visibility.Visible && play.Visibility == Visibility.Hidden) || (pause.Visibility == Visibility.Hidden && play.Visibility == Visibility.Visible))
+        //        {
+        //            pause.Visibility = Visibility.Hidden;
+        //            play.Visibility = Visibility.Visible;
+        //            _isRunning = false;
+        //            _timer.Stop();
+        //            _timeSpan = TimeSpan.Zero;
+
+        //            UpdateTimeLabel();
+        //            timerStatus.Content = "Stopped";
+        //            StartScreenshotProcess(false);
+        //            BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
+        //            bgEc.Fill = new SolidColorBrush(Colors.Gray);
+        //            await Task.Delay(1000);
+        //        }
+
+
+        //        loginScreen.Visibility = Visibility.Visible;
+        //        welcomeScreen.Visibility = Visibility.Hidden;
+        //        welcomeBox.Visibility = Visibility.Visible;
+        //        stop.Visibility = Visibility.Hidden;
+
+        //        homePane.Visibility = Visibility.Visible;
+        //        infoPane.Visibility = Visibility.Hidden;
+        //        settingsPane.Visibility = Visibility.Hidden;
+        //        homeActive.Visibility = Visibility.Visible;
+        //        SettingsActive.Visibility = Visibility.Hidden;
+        //        infoActive.Visibility = Visibility.Hidden;
+        //    }
+        //    else
+        //    {
+        //        statusLabel.Content = "Logout failed. Please try again.";
+        //    }
+        //}
+
+
     }
 }

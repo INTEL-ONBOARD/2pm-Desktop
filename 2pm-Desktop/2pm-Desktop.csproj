@@ -10,25 +10,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="view\076.png" />
+    <None Remove="view\077.png" />
     <None Remove="view\1484.gif" />
     <None Remove="view\circle-xmark %281%29.png" />
+    <None Remove="view\Content.png" />
     <None Remove="view\cross %281%29.png" />
     <None Remove="view\exit.png" />
     <None Remove="view\loading.gif" />
     <None Remove="view\settings.png" />
+    <None Remove="view\Top Nah.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="view\076.png" />
+    <Resource Include="view\077.png" />
     <Resource Include="view\1484.gif" />
     <Resource Include="view\circle-xmark (1).png" />
+    <Resource Include="view\Content.png" />
     <Resource Include="view\cross (1).png" />
     <Resource Include="view\exit.png" />
     <Resource Include="view\loading.gif" />
     <Resource Include="view\settings.png" />
+    <Resource Include="view\Top Nah.png" />
   </ItemGroup>
 
 </Project>

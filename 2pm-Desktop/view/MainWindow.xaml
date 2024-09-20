@@ -183,6 +183,33 @@
                 </Grid>
 
 
+                <Grid x:Name="defaultScreen" Margin="23,36,23,29" Visibility="Hidden">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Grid.Background>
+                    <Image gif:ImageBehavior.AnimatedSource="/view/loading.gif" 
+           Margin="76,112,76,130" 
+           Stretch="UniformToFill" />
+
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Grid.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+                        Storyboard.TargetProperty="Opacity" 
+                        From="0" To="1" 
+                        Duration="0:0:2">
+                                        <DoubleAnimation.EasingFunction>
+                                            <QuadraticEase EasingMode="EaseIn" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+
+
                 <Grid x:Name="loadingScreen" Margin="23,36,23,29" Visibility="Hidden">
                     <Grid.Background>
                         <SolidColorBrush Color="Black" Opacity="0"/>
@@ -211,6 +238,8 @@
                 </Grid>
 
 
+                
+                
                 <Grid x:Name="loginScreen" Margin="23,36,23,29" Visibility="Visible">
 
 
@@ -292,13 +321,13 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
         VerticalContentAlignment="Center" 
         Width="204" 
         Cursor="Hand" 
-        Click="login" FontWeight="Medium" FontSize="16">
+        Click="login" 
+        FontWeight="Medium" 
+        FontSize="16">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="White"/>
-                                    <!-- Default background -->
                                     <Setter Property="Foreground" Value="#F0A459"/>
-                                    <!-- Default text color -->
                                     <Setter Property="BorderThickness" Value="0"/>
                                     <Setter Property="BorderBrush" Value="Transparent"/>
                                     <Setter Property="Template">
@@ -307,24 +336,55 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                                                 <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="18">
+                                CornerRadius="18"
+                                RenderTransformOrigin="0.5,0.5">
+                                                    <!-- Center of the border -->
+                                                    <Border.RenderTransform>
+                                                        <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+                                                    </Border.RenderTransform>
                                                     <ContentPresenter HorizontalAlignment="Center" 
                                               VerticalAlignment="Center"/>
                                                 </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation 
+                                                Storyboard.TargetName="scaleTransform" 
+                                                Storyboard.TargetProperty="ScaleX" 
+                                                To="0.95" Duration="0:0:0.1"/>
+                                                                    <DoubleAnimation 
+                                                Storyboard.TargetName="scaleTransform" 
+                                                Storyboard.TargetProperty="ScaleY" 
+                                                To="0.95" Duration="0:0:0.1"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.EnterActions>
+                                                        <Trigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation 
+                                                Storyboard.TargetName="scaleTransform" 
+                                                Storyboard.TargetProperty="ScaleX" 
+                                                To="1" Duration="0:0:0.1"/>
+                                                                    <DoubleAnimation 
+                                                Storyboard.TargetName="scaleTransform" 
+                                                Storyboard.TargetProperty="ScaleY" 
+                                                To="1" Duration="0:0:0.1"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.ExitActions>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#F0A459"/>
-                                            <!-- Change background to white on hover -->
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <!-- Change text color to button color -->
-                                        </Trigger>
-                                    </Style.Triggers>
                                 </Style>
                             </Button.Style>
                         </Button>
+
+
 
 
                         <Image HorizontalAlignment="Left" Height="51" Margin="178,22,0,0" VerticalAlignment="Top" Width="39" Source="/view/077.png"/>

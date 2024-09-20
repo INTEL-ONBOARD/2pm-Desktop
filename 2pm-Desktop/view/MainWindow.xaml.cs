@@ -154,6 +154,9 @@ namespace _2pm_Desktop
 
         private async void login(object sender, RoutedEventArgs e)
         {
+            loginScreen.Visibility = Visibility.Hidden;
+            defaultScreen.Visibility = Visibility.Visible;
+
             status.Visibility = Visibility.Visible;
             status.Content = "Checking credentials....";
             //statusLabel.Visibility = Visibility.Visible;
@@ -166,6 +169,7 @@ namespace _2pm_Desktop
             if (loginResult == "true")
             {
                 loginScreen.Visibility = Visibility.Hidden;
+                defaultScreen.Visibility = Visibility.Hidden;
                 status.Content = "";
                 homeScreen.Visibility = Visibility.Visible;
                 //homePane.Visibility = Visibility.Visible;
@@ -173,6 +177,8 @@ namespace _2pm_Desktop
             }
             else
             {
+                loginScreen.Visibility = Visibility.Visible;
+                defaultScreen.Visibility = Visibility.Hidden;
                 status.Content = "Login failed.Please try again.";
                 status.Visibility = Visibility.Visible;
             }

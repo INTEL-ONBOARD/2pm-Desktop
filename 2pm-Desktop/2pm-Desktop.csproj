@@ -9,4 +9,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="view\cross %281%29.png" />
+    <None Remove="view\exit.png" />
+    <None Remove="view\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="view\cross (1).png" />
+    <Resource Include="view\exit.png" />
+    <Resource Include="view\settings.png" />
+  </ItemGroup>
+
 </Project>

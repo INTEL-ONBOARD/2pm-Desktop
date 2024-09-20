@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_2pm_Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" 
+        Height="500" Width="380"
+        ResizeMode="NoResize" 
+        WindowStartupLocation="Manual"
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Loaded="Window_Loaded">
 
-    </Grid>
+    <!-- Wrap the content inside a Viewbox for scaling (if needed) -->
+    <Viewbox>
+        <Grid>
+            <!-- Your UI elements go here -->
+        </Grid>
+    </Viewbox>
 </Window>

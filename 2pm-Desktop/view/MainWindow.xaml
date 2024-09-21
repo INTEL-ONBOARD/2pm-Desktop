@@ -171,7 +171,7 @@
                         <Image Source="/view/circle-xmark (1).png" />
                     </Button>
                     <Label x:Name="status" Content="" HorizontalAlignment="Center" Margin="0,363,0,0" VerticalAlignment="Top" Foreground="#FFA0A0A0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <Ellipse x:Name="connectionStatus" Width="10" Height="10" Fill="Green" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" RenderTransformOrigin="0.528,0.569"/>
+                    <Ellipse x:Name="connectionStatus" Width="10" Height="10" Fill="Green" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,376,0,0" RenderTransformOrigin="0.528,0.569"/>
 
                     <!--<Button x:Name="HomeBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,16,260,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}">
                         <Image Source="/view/settings.png" />
@@ -238,9 +238,7 @@
                 </Grid>
 
 
-                
-                
-                <Grid x:Name="loginScreen" Margin="23,36,23,29" Visibility="Visible">
+                <Grid x:Name="loginScreen" Margin="23,36,23,29" Visibility="Hidden">
 
 
                     <Grid>
@@ -396,7 +394,207 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                 </Grid>
 
 
-                <Grid x:Name="homeScreen" Margin="23,36,23,29" Visibility="Hidden" Background="#FFC82222">
+                <Grid x:Name="homeScreen" Margin="23,36,23,29" Visibility="Visible">
+
+                    <Button x:Name="play" Style="{StaticResource btncutsomstylePlain}" 
+        HorizontalAlignment="Right" Margin="0,16,134,0" 
+        Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
+        Foreground="{x:Null}" Width="110" Height="101" Click="punchIn_click">
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.3"/>
+                        </Button.Background>
+
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="/view/play.png" Stretch="UniformToFill" Height="51" Width="48" RenderTransformOrigin="0.5,0.5" >
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock Text="Punch in" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Foreground="White" 
+                   FontWeight="Thin" 
+                   FontSize="11" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="pause" Style="{StaticResource btncutsomstylePlain}" 
+        HorizontalAlignment="Right" Margin="0,16,15,0" 
+        Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
+        Foreground="{x:Null}" Width="110" Height="101" IsEnabled="False" Click="breakIn_click">
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.1"/>
+                        </Button.Background>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="/view/pause.png" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock Text="Break in" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Foreground="White" 
+                   FontWeight="Thin" 
+                   FontSize="11" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="resume" Style="{StaticResource btncutsomstylePlain}" 
+        HorizontalAlignment="Right" Margin="0,125,134,0" 
+        Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
+        Foreground="{x:Null}" Width="110" Height="101" IsEnabled="False" Click="breakOut_click">
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.1"/>
+                        </Button.Background>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="/view/next.png" Stretch="Fill" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock Text="Break out" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Foreground="White" 
+                   FontWeight="Thin" 
+                   FontSize="11" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="stop" Style="{StaticResource btncutsomstylePlain}" 
+        HorizontalAlignment="Right" Margin="0,125,15,0" 
+        Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
+        Foreground="{x:Null}" Width="110" Height="101" IsEnabled="False" Click="punchOut_click">
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.1"/>
+                        </Button.Background>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="/view/stop.png" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock Text="Punch out" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Foreground="White" 
+                   FontWeight="Thin" 
+                   FontSize="11" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Button>
+
+
+
+                    <!--stop screenshot service-->
+                    <Ellipse x:Name="bgEc" HorizontalAlignment="Left" Height="13" Margin="29,278,0,0" VerticalAlignment="Top" Width="13" Fill="Gray"/>
+                    <!--run screenshot service-->
+                    <Ellipse x:Name="BlinkingEllipse"
+         HorizontalAlignment="Left" 
+         Height="13" 
+         Margin="29,278,0,0"
+         VerticalAlignment="Top" 
+         Width="13" 
+         Fill="Gray"
+         Visibility="Collapsed">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Style.Triggers>
+                                    <!-- Trigger when the Ellipse becomes Visible -->
+                                    <DataTrigger Binding="{Binding Visibility, RelativeSource={RelativeSource Self}}" Value="Visible">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever">
+                                                    <!-- Animation for fading out -->
+                                                    <DoubleAnimation 
+                                    Storyboard.TargetProperty="Opacity" 
+                                    From="1.0" 
+                                    To="0.0" 
+                                    Duration="0:0:0.9" 
+                                    AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+
+                                        <DataTrigger.ExitActions>
+                                            <StopStoryboard/>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+
+
+                    <Label x:Name="subtile" Content="Stopped" HorizontalAlignment="Left" Margin="40,266,0,0" VerticalAlignment="Top" FontSize="16" Height="35" Width="82" Background="{x:Null}" Foreground="#FF6C6C6C" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="processLabel" Content="" HorizontalAlignment="Left" Margin="22,288,0,0" VerticalAlignment="Top" FontSize="8" Foreground="#FF989898" FontWeight="ExtraLight" Height="32" RenderTransformOrigin="0.5,0.5" Width="221">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <Label x:Name="timeLabel"
+                      Content="00:00:00"
+                      FontSize="22"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      FontWeight="Bold"
+                      HorizontalContentAlignment="Center" Margin="22,244,0,0" Height="39" RenderTransformOrigin="0.5,0.5" Width="102" Foreground="#FFBEBEBE">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <Rectangle HorizontalAlignment="Center" Height="62" Margin="0,242,0,0" VerticalAlignment="Top" Width="1">
+                        <Rectangle.Stroke>
+                            <SolidColorBrush Color="White" Opacity="0.5"/>
+                        </Rectangle.Stroke>
+                    </Rectangle>
+
+
+                    <Button x:Name="settingBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,88,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickExit">
+                        <Image Source="/view/settings.png" />
+                    </Button>
+
+                    <Button x:Name="infoBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,60,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" Background="{x:Null}" Click="clickExit">
+                        <Image Source="/view/info.png" />
+                    </Button>
+
+                    <Button x:Name="logoutBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,30,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickLogout">
+                        <Image Source="/view/exit.png" />
+                    </Button>
+
+                </Grid>
+
+                <Grid x:Name="settingScreen" Margin="23,36,23,29" Visibility="Hidden" Background="#FFC82222">
 
                 </Grid>
 

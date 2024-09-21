@@ -17,8 +17,13 @@
     <None Remove="view\Content.png" />
     <None Remove="view\cross %281%29.png" />
     <None Remove="view\exit.png" />
+    <None Remove="view\info.png" />
     <None Remove="view\loading.gif" />
+    <None Remove="view\next.png" />
+    <None Remove="view\pause.png" />
+    <None Remove="view\play.png" />
     <None Remove="view\settings.png" />
+    <None Remove="view\stop.png" />
     <None Remove="view\Top Nah.png" />
   </ItemGroup>
 
@@ -35,8 +40,13 @@
     <Resource Include="view\Content.png" />
     <Resource Include="view\cross (1).png" />
     <Resource Include="view\exit.png" />
+    <Resource Include="view\info.png" />
     <Resource Include="view\loading.gif" />
+    <Resource Include="view\next.png" />
+    <Resource Include="view\pause.png" />
+    <Resource Include="view\play.png" />
     <Resource Include="view\settings.png" />
+    <Resource Include="view\stop.png" />
     <Resource Include="view\Top Nah.png" />
   </ItemGroup>
 

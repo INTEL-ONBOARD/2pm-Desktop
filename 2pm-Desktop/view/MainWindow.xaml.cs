@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Timers;
@@ -7,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace _2pm_Desktop
 {
@@ -15,6 +18,18 @@ namespace _2pm_Desktop
         private Thread _connectionCheckThread;
         private bool _isConnected;
         private bool _keepChecking;
+
+        private bool pauseCheck = false;
+        private DispatcherTimer _timer;
+        private TimeSpan _timeSpan;
+        private bool _isRunning;
+        public int total = 1;
+
+        List<Process> processList = new List<Process>();
+        private bool multipleRunCount;
+        Process[] processes;
+        private bool isScreenshotActive;
+
 
         public MainWindow()
         {
@@ -189,51 +204,96 @@ namespace _2pm_Desktop
             this.Close();
         }
 
-        //private async void logout(object sender, RoutedEventArgs e)
-        //{
-        //    string logoutResult = await model.requestEngine.logOutUser();
+        private async void clickLogout(object sender, RoutedEventArgs e)
+        {
+            string logoutResult = await model.requestEngine.logOutUser();
 
-        //    if (logoutResult == "true")
-        //    {
-        //        uname.Text = "";
-        //        pwd.Clear();
+            if (logoutResult == "true")
+            {
+                uname.Text = "";
+                pwd.Clear();
 
-        //        panelView.Children.Clear();
-        //        if ((pause.Visibility == Visibility.Visible && play.Visibility == Visibility.Hidden) || (pause.Visibility == Visibility.Hidden && play.Visibility == Visibility.Visible))
-        //        {
-        //            pause.Visibility = Visibility.Hidden;
-        //            play.Visibility = Visibility.Visible;
-        //            _isRunning = false;
-        //            _timer.Stop();
-        //            _timeSpan = TimeSpan.Zero;
-
-        //            UpdateTimeLabel();
-        //            timerStatus.Content = "Stopped";
-        //            StartScreenshotProcess(false);
-        //            BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
-        //            bgEc.Fill = new SolidColorBrush(Colors.Gray);
-        //            await Task.Delay(1000);
-        //        }
+                if (!(pause.IsEnabled || resume.IsEnabled || stop.IsEnabled))
+                {
 
 
-        //        loginScreen.Visibility = Visibility.Visible;
-        //        welcomeScreen.Visibility = Visibility.Hidden;
-        //        welcomeBox.Visibility = Visibility.Visible;
-        //        stop.Visibility = Visibility.Hidden;
-
-        //        homePane.Visibility = Visibility.Visible;
-        //        infoPane.Visibility = Visibility.Hidden;
-        //        settingsPane.Visibility = Visibility.Hidden;
-        //        homeActive.Visibility = Visibility.Visible;
-        //        SettingsActive.Visibility = Visibility.Hidden;
-        //        infoActive.Visibility = Visibility.Hidden;
-        //    }
-        //    else
-        //    {
-        //        statusLabel.Content = "Logout failed. Please try again.";
-        //    }
-        //}
+                    BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
+                    bgEc.Fill = new SolidColorBrush(Colors.Gray);
+                    await Task.Delay(1000);
+                }
 
 
+                loginScreen.Visibility = Visibility.Visible;
+                homeScreen.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                status.Content = "Logout failed. Please try again.";
+            }
+        }
+
+        private void punchIn_click(object sender, RoutedEventArgs e)
+        {
+            play.IsEnabled = false;
+            pause.IsEnabled = true;
+            resume.IsEnabled = false;
+            stop.IsEnabled = true;
+            play.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            BlinkingEllipse.Fill = new SolidColorBrush(Colors.Green);
+            BlinkingEllipse.Visibility = Visibility.Visible;
+            subtile.Content = "Recording";
+
+        }
+
+        private void breakIn_click(object sender, RoutedEventArgs e)
+        {
+            play.IsEnabled = false;
+            pause.IsEnabled = false;
+            resume.IsEnabled = true;
+            stop.IsEnabled = true;
+            play.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            BlinkingEllipse.Fill = new SolidColorBrush(Colors.Yellow);
+            BlinkingEllipse.Visibility = Visibility.Visible;
+            subtile.Content = "Paused";
+
+        }
+
+        private void punchOut_click(object sender, RoutedEventArgs e)
+        {
+            play.IsEnabled = true;
+            pause.IsEnabled = false;
+            resume.IsEnabled = false;
+            stop.IsEnabled = false;
+            play.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
+            BlinkingEllipse.Visibility = Visibility.Visible;
+            subtile.Content = "Stopped";
+
+        }
+
+        private void breakOut_click(object sender, RoutedEventArgs e)
+        {
+            play.IsEnabled = false;
+            pause.IsEnabled = true;
+            resume.IsEnabled = true;
+            stop.IsEnabled = true;
+            play.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            BlinkingEllipse.Fill = new SolidColorBrush(Colors.Green);
+            BlinkingEllipse.Visibility = Visibility.Visible;
+            subtile.Content = "Recording";
+
+        }
     }
 }

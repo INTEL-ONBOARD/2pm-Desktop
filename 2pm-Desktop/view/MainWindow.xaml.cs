@@ -282,6 +282,7 @@ namespace _2pm_Desktop
             }
 
             timer.Start();
+            StartScreenshotProcess(true);
             isPaused = false;
 
         }
@@ -301,6 +302,7 @@ namespace _2pm_Desktop
             subtile.Content = "Paused";
 
             timer.Stop();
+            StartScreenshotProcess(false);
             isPaused = true;
 
         }
@@ -320,6 +322,7 @@ namespace _2pm_Desktop
             subtile.Content = "Stopped";
 
             timer.Stop();
+            StartScreenshotProcess(false);
             elapsedTime = TimeSpan.Zero;
             timeLabel.Content = "00:00:00";
             isPaused = false;
@@ -343,6 +346,8 @@ namespace _2pm_Desktop
             if (isPaused)
             {
                 timer.Start();
+                StartScreenshotProcess(true);
+
             }
 
         }

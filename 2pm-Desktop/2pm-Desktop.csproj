@@ -19,6 +19,7 @@
     <None Remove="view\exit.png" />
     <None Remove="view\info.png" />
     <None Remove="view\loading.gif" />
+    <None Remove="view\logo.png" />
     <None Remove="view\next.png" />
     <None Remove="view\pause.png" />
     <None Remove="view\play.png" />
@@ -29,6 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
@@ -42,6 +44,7 @@
     <Resource Include="view\exit.png" />
     <Resource Include="view\info.png" />
     <Resource Include="view\loading.gif" />
+    <Resource Include="view\logo.png" />
     <Resource Include="view\next.png" />
     <Resource Include="view\pause.png" />
     <Resource Include="view\play.png" />

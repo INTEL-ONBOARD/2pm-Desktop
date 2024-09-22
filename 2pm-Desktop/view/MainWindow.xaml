@@ -214,10 +214,11 @@
                     <Grid.Background>
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Grid.Background>
-                    <Label Content="2PM" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Foreground="White" FontFamily="Bahnschrift" FontSize="48" Margin="0,117,0,0"/>
+
                     <Image gif:ImageBehavior.AnimatedSource="/view/loading.gif" 
            Margin="78,137,73,105" 
            Stretch="UniformToFill" />
+                    <Image HorizontalAlignment="Left" Height="100" Margin="81,125,0,0" VerticalAlignment="Top" Width="100" Source="/view/logo.png"/>
 
                     <Grid.Triggers>
                         <EventTrigger RoutedEvent="Grid.Loaded">
@@ -563,10 +564,10 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top"
                       FontWeight="Bold"
-                      HorizontalContentAlignment="Center" Margin="22,244,0,0" Height="39" RenderTransformOrigin="0.5,0.5" Width="102" Foreground="#FFBEBEBE">
+                      HorizontalContentAlignment="Center" Margin="18,239,0,0" Height="37" RenderTransformOrigin="0.5,0.5" Width="110" Foreground="#FFBEBEBE">
                         <Label.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
                                 <SkewTransform/>
                                 <RotateTransform/>
                                 <TranslateTransform/>

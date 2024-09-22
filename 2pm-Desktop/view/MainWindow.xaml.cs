@@ -10,6 +10,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Drawing;
+using System.Drawing.Imaging;
+
+using MediaColor = System.Windows.Media.Color;
 
 namespace _2pm_Desktop
 {
@@ -19,23 +23,24 @@ namespace _2pm_Desktop
         private bool _isConnected;
         private bool _keepChecking;
 
-        private bool pauseCheck = false;
-        private DispatcherTimer _timer;
-        private TimeSpan _timeSpan;
-        private bool _isRunning;
-        public int total = 1;
-
         List<Process> processList = new List<Process>();
         private bool multipleRunCount;
         Process[] processes;
         private bool isScreenshotActive;
 
+        private DispatcherTimer timer;
+        private TimeSpan elapsedTime;
+        private bool isPaused;
 
         public MainWindow()
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
             this.Closing += Window_Closing;
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -99,6 +104,7 @@ namespace _2pm_Desktop
 
         private void CheckInternetConnection()
         {
+
             while (_keepChecking)
             {
                 try
@@ -111,7 +117,8 @@ namespace _2pm_Desktop
                         if (!_isConnected)
                         {
                             _isConnected = true;
-                            UpdateConnectionStatus(Colors.Green, "Internet Available");
+                            // Convert System.Windows.Media.Color to System.Drawing.Color
+                            UpdateConnectionStatus(ConvertMediaColorToDrawingColor(System.Windows.Media.Colors.Green), "Internet Available");
                         }
                     }
                     else
@@ -119,7 +126,7 @@ namespace _2pm_Desktop
                         if (_isConnected)
                         {
                             _isConnected = false;
-                            UpdateConnectionStatus(Colors.Red, "Internet Lost");
+                            UpdateConnectionStatus(ConvertMediaColorToDrawingColor(System.Windows.Media.Colors.Red), "Internet Lost");
                         }
                     }
                 }
@@ -128,23 +135,35 @@ namespace _2pm_Desktop
                     if (_isConnected)
                     {
                         _isConnected = false;
-                        UpdateConnectionStatus(Colors.Red, "Internet Lost");
+                        UpdateConnectionStatus(ConvertMediaColorToDrawingColor(System.Windows.Media.Colors.Red), "Internet Lost");
                     }
                 }
 
-                Thread.Sleep(5000); 
+                Thread.Sleep(5000);
             }
         }
-
-        private void UpdateConnectionStatus(Color color, string message)
+        private System.Windows.Media.Color ConvertDrawingColorToMediaColor(System.Drawing.Color drawingColor)
+        {
+            return System.Windows.Media.Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B);
+        }
+        private void UpdateConnectionStatus(System.Drawing.Color color, string message)
         {
             Dispatcher.Invoke(() =>
             {
-                connectionStatus.Fill = new SolidColorBrush(color);
+                // Convert System.Drawing.Color to System.Windows.Media.Color
+                var mediaColor = ConvertDrawingColorToMediaColor(color);
+
+                // Apply converted color to SolidColorBrush
+                connectionStatus.Fill = new SolidColorBrush(mediaColor);
+
                 System.Diagnostics.Debug.WriteLine(message);
             });
         }
 
+        private System.Drawing.Color ConvertMediaColorToDrawingColor(System.Windows.Media.Color mediaColor)
+        {
+            return System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
+        }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _keepChecking = false; 
@@ -165,7 +184,6 @@ namespace _2pm_Desktop
             //statusLabel.Content = "Attempting to log in again. Please wait...";
             status.Visibility = Visibility.Hidden;
         }
-
 
         private async void login(object sender, RoutedEventArgs e)
         {
@@ -189,6 +207,13 @@ namespace _2pm_Desktop
                 homeScreen.Visibility = Visibility.Visible;
                 //homePane.Visibility = Visibility.Visible;
                 //attendencePane.Visibility = Visibility.Hidden;
+
+
+
+                elapsedTime = TimeSpan.Zero;
+                isPaused = false;
+
+
             }
             else
             {
@@ -222,6 +247,10 @@ namespace _2pm_Desktop
                     await Task.Delay(1000);
                 }
 
+                timer.Stop();
+                elapsedTime = TimeSpan.Zero;
+                timeLabel.Content = "00:00:00";
+                isPaused = false;
 
                 loginScreen.Visibility = Visibility.Visible;
                 homeScreen.Visibility = Visibility.Hidden;
@@ -238,13 +267,22 @@ namespace _2pm_Desktop
             pause.IsEnabled = true;
             resume.IsEnabled = false;
             stop.IsEnabled = true;
-            play.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Green);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Recording";
+
+            if (!isPaused)
+            {
+                elapsedTime = TimeSpan.Zero;
+                timeLabel.Content = "00:00:00"; // Reset the clock
+            }
+
+            timer.Start();
+            isPaused = false;
 
         }
 
@@ -254,13 +292,16 @@ namespace _2pm_Desktop
             pause.IsEnabled = false;
             resume.IsEnabled = true;
             stop.IsEnabled = true;
-            play.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Yellow);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Paused";
+
+            timer.Stop();
+            isPaused = true;
 
         }
 
@@ -270,13 +311,18 @@ namespace _2pm_Desktop
             pause.IsEnabled = false;
             resume.IsEnabled = false;
             stop.IsEnabled = false;
-            play.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            play.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Stopped";
+
+            timer.Stop();
+            elapsedTime = TimeSpan.Zero;
+            timeLabel.Content = "00:00:00";
+            isPaused = false;
 
         }
 
@@ -286,14 +332,96 @@ namespace _2pm_Desktop
             pause.IsEnabled = true;
             resume.IsEnabled = true;
             stop.IsEnabled = true;
-            play.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(Color.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(Color.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Green);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Recording";
 
+            if (isPaused)
+            {
+                timer.Start();
+            }
+
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            elapsedTime = elapsedTime.Add(TimeSpan.FromSeconds(1));
+            timeLabel.Content = elapsedTime.ToString(@"hh\:mm\:ss");
+        }
+
+        private async void StartScreenshotProcess(bool initialState)
+        {
+            isScreenshotActive = initialState;
+            Random random = new Random();
+
+
+            int randomIntervalSeconds = random.Next(1, 26);
+            System.Diagnostics.Debug.WriteLine($"{randomIntervalSeconds} ms");
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(randomIntervalSeconds)
+            };
+
+            timer.Tick += async (sender, args) =>
+            {
+                if (isScreenshotActive)
+                {
+                    string path = await TakeScreenshot();
+                    //update(path);
+
+                    int newRandomIntervalSeconds = random.Next(1, 26);
+                    timer.Interval = TimeSpan.FromSeconds(newRandomIntervalSeconds);
+                    System.Diagnostics.Debug.WriteLine($"Next interval: {newRandomIntervalSeconds} seconds");
+
+
+                }
+                else
+                {
+                    timer.Stop();
+                    timer.Tick -= Timer_Tick;
+                }
+            };
+
+            timer.Start();
+        }
+
+        private async Task<string> TakeScreenshot()
+        {
+
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string folderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "upload");
+            string filename = System.IO.Path.Combine(folderPath, $"Screenshot_{timestamp}.png");
+
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+
+            var screenWidth = (int)SystemParameters.PrimaryScreenWidth;
+            var screenHeight = (int)SystemParameters.PrimaryScreenHeight;
+
+            using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
+            {
+
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
+                }
+
+
+                await Task.Run(() => bitmap.Save(filename, ImageFormat.Png));
+                System.Diagnostics.Debug.WriteLine("Saved :::::" + filename);
+
+            }
+
+
+            return filename;
         }
     }
 }

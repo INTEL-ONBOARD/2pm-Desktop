@@ -12,8 +12,11 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Newtonsoft.Json.Linq; 
+
 
 using MediaColor = System.Windows.Media.Color;
+using Newtonsoft.Json;
 
 namespace _2pm_Desktop
 {
@@ -41,6 +44,15 @@ namespace _2pm_Desktop
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+
+
+
+            bool startLoggedIn = ((JToken)ReadUserSetting("StartLoggedIn")).Value<bool>();
+
+            uname.Text = startLoggedIn ? ((JToken)ReadUserSetting("Username")).Value<string>() : string.Empty;
+            pwd.Password = startLoggedIn ? ((JToken)ReadUserSetting("Password")).Value<string>() : string.Empty;
+
+            if (startLoggedIn){StayLoggedInCheckbox.IsChecked = true;}else{StayLoggedInCheckbox.IsChecked = false;}
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -142,10 +154,12 @@ namespace _2pm_Desktop
                 Thread.Sleep(5000);
             }
         }
+
         private System.Windows.Media.Color ConvertDrawingColorToMediaColor(System.Drawing.Color drawingColor)
         {
             return System.Windows.Media.Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B);
         }
+
         private void UpdateConnectionStatus(System.Drawing.Color color, string message)
         {
             Dispatcher.Invoke(() =>
@@ -164,6 +178,7 @@ namespace _2pm_Desktop
         {
             return System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
         }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _keepChecking = false; 
@@ -196,6 +211,19 @@ namespace _2pm_Desktop
             // Assuming model.requestEngine.ValidUser() was intended to call ValidUser()
             String une = uname.Text;
             String pwdd = pwd.Password.ToString();
+
+            if (StayLoggedInCheckbox.IsChecked == true) {
+                UpdateUserSetting("Username", une);
+                UpdateUserSetting("Password", pwdd);
+                UpdateUserSetting("StartLoggedIn", true);
+            }
+            else
+            {
+                UpdateUserSetting("Username", "");
+                UpdateUserSetting("Password", "");
+                UpdateUserSetting("StartLoggedIn", false);
+            }
+
             string loginResult = await model.requestEngine.logInUser(une, pwdd);
 
             await Task.Delay(1000);
@@ -251,6 +279,16 @@ namespace _2pm_Desktop
                 elapsedTime = TimeSpan.Zero;
                 timeLabel.Content = "00:00:00";
                 isPaused = false;
+
+
+
+                bool startLoggedIn = ((JToken)ReadUserSetting("StartLoggedIn")).Value<bool>();
+
+                uname.Text = startLoggedIn ? ((JToken)ReadUserSetting("Username")).Value<string>() : string.Empty;
+                pwd.Password = startLoggedIn ? ((JToken)ReadUserSetting("Password")).Value<string>() : string.Empty;
+                if (startLoggedIn) { StayLoggedInCheckbox.IsChecked = true; } else { StayLoggedInCheckbox.IsChecked = false; }
+
+
 
                 loginScreen.Visibility = Visibility.Visible;
                 homeScreen.Visibility = Visibility.Hidden;
@@ -428,5 +466,111 @@ namespace _2pm_Desktop
 
             return filename;
         }
+
+        public void UpdateUserSetting(string key, object newValue)
+        {
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserSettings.json");
+
+            // Check if the file exists
+            if (File.Exists(filePath))
+            {
+                // Read the existing JSON data
+                string json = File.ReadAllText(filePath);
+                dynamic jsonObj = JsonConvert.DeserializeObject(json);
+
+                // Update the specified key
+                if (key == "Username")
+                {
+                    jsonObj.Username = newValue;
+                }
+                else if (key == "Password")
+                {
+                    jsonObj.Password = newValue;
+                }
+                else if (key == "StartLoggedIn")
+                {
+                    jsonObj.Settings.StartLoggedIn = newValue;
+                }
+                else if (key == "RunOnStartup")
+                {
+                    jsonObj.Settings.RunOnStartup = newValue;
+                }
+                else if (key == "RunInBackground")
+                {
+                    jsonObj.Settings.RunInBackground = newValue;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid key specified.");
+                }
+
+                // Serialize back to JSON
+                string updatedJson = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+                File.WriteAllText(filePath, updatedJson);
+            }
+            else
+            {
+                throw new FileNotFoundException("User settings file not found.");
+            }
+        }
+
+        public object ReadUserSetting(string key)
+        {
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserSettings.json");
+
+            // Check if the file exists
+            if (!File.Exists(filePath))
+            {
+                // Create an empty settings file with default values
+                var defaultSettings = new
+                {
+                    Username = string.Empty,
+                    Password = string.Empty,
+                    Settings = new
+                    {
+                        StartLoggedIn = false,
+                        RunOnStartup = false,
+                        RunInBackground = false
+                    }
+                };
+
+                string defaultJson = JsonConvert.SerializeObject(defaultSettings, Formatting.Indented);
+                File.WriteAllText(filePath, defaultJson);
+            }
+
+            // Read the existing JSON data
+            string json = File.ReadAllText(filePath);
+            dynamic jsonObj = JsonConvert.DeserializeObject(json);
+
+            // Retrieve the specified key value
+            switch (key)
+            {
+                case "Username":
+                    return jsonObj.Username;
+                case "Password":
+                    return jsonObj.Password;
+                case "StartLoggedIn":
+                    return jsonObj.Settings.StartLoggedIn;
+                case "RunOnStartup":
+                    return jsonObj.Settings.RunOnStartup;
+                case "RunInBackground":
+                    return jsonObj.Settings.RunInBackground;
+                default:
+                    throw new ArgumentException("Invalid key specified.");
+            }
+        }
+
+
+
     }
 }
+
+//{
+//    "Username": "yourUsername",
+//    "Password": "yourPassword",
+//    "Settings": {
+//        "StartLoggedIn": true,
+//        "RunOnStartup": true,
+//        "RunInBackground": true
+//    }
+//}

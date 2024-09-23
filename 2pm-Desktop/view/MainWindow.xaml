@@ -239,7 +239,7 @@
                 </Grid>
 
 
-                <Grid x:Name="loginScreen" Margin="23,36,23,29" Visibility="Hidden">
+                <Grid x:Name="loginScreen" Margin="23,36,23,29" Visibility="Visible">
 
 
                     <Grid>
@@ -395,7 +395,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                 </Grid>
 
 
-                <Grid x:Name="homeScreen" Margin="23,36,23,29" Visibility="Visible">
+                <Grid x:Name="homeScreen" Margin="23,36,23,29" Visibility="Hidden">
 
                     <Button x:Name="play" Style="{StaticResource btncutsomstylePlain}" 
         HorizontalAlignment="Right" Margin="0,16,134,0" 

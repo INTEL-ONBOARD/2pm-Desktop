@@ -13,10 +13,13 @@
     <None Remove="view\076.png" />
     <None Remove="view\077.png" />
     <None Remove="view\1484.gif" />
+    <None Remove="view\back-button.png" />
+    <None Remove="view\back.png" />
     <None Remove="view\circle-xmark %281%29.png" />
     <None Remove="view\Content.png" />
     <None Remove="view\cross %281%29.png" />
     <None Remove="view\exit.png" />
+    <None Remove="view\expand-arrows.png" />
     <None Remove="view\info.png" />
     <None Remove="view\loading.gif" />
     <None Remove="view\logo.png" />
@@ -26,6 +29,7 @@
     <None Remove="view\settings.png" />
     <None Remove="view\stop.png" />
     <None Remove="view\Top Nah.png" />
+    <None Remove="view\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +42,13 @@
     <Resource Include="view\076.png" />
     <Resource Include="view\077.png" />
     <Resource Include="view\1484.gif" />
+    <Resource Include="view\back-button.png" />
+    <Resource Include="view\back.png" />
     <Resource Include="view\circle-xmark (1).png" />
     <Resource Include="view\Content.png" />
     <Resource Include="view\cross (1).png" />
     <Resource Include="view\exit.png" />
+    <Resource Include="view\expand-arrows.png" />
     <Resource Include="view\info.png" />
     <Resource Include="view\loading.gif" />
     <Resource Include="view\logo.png" />
@@ -51,6 +58,7 @@
     <Resource Include="view\settings.png" />
     <Resource Include="view\stop.png" />
     <Resource Include="view\Top Nah.png" />
+    <Resource Include="view\user.png" />
   </ItemGroup>
 
 </Project>

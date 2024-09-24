@@ -560,8 +560,10 @@ namespace _2pm_Desktop
             }
         }
 
+        private void issale_Checked(object sender, RoutedEventArgs e)
+        {
 
-
+        }
     }
 }
 

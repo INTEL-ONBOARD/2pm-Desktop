@@ -595,7 +595,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
 
                 </Grid>
 
-                <Grid x:Name="settingScreen" Margin="23,36,23,29" Visibility="Visible">
+                <Grid x:Name="settingScreen" Margin="23,36,23,29" Visibility="Hidden">
                     <Grid.Background>
                         <SolidColorBrush Color="#FFC82222" Opacity="0"/>
                     </Grid.Background>
@@ -703,6 +703,32 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                     <Button x:Name="backHome" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,28,212,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="30" Height="29" Background="{x:Null}" Click="clickExit" Opacity="0.197">
                         <Image Source="/view/back.png" />
                     </Button>
+                </Grid>
+                <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Hidden">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FFC82222" Opacity="0.1"/>
+                    </Grid.Background>
+
+
+
+                    <ScrollViewer x:Name="reportView" 
+                      HorizontalScrollBarVisibility="Hidden" 
+                      VerticalScrollBarVisibility="Hidden" 
+                      PanningMode="HorizontalFirst" 
+                      PanningDeceleration="1" Height="239">
+                        <StackPanel x:Name="reportPnaelView" Width="800" Orientation="Horizontal">
+                            <!-- Content will be added here -->
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Label Content="Report" HorizontalAlignment="Center" Margin="0,16,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontWeight="Bold" Foreground="White" FontSize="36"/>
+
+                    <!-- Position buttons using Canvas -->
+                    <Canvas>
+                        <Button x:Name="LeftButton" Content="←" Click="LeftButton_Click" Width="30" Height="30" Canvas.Left="10" Canvas.Top="290" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Button x:Name="RightButton" Content="→" Click="RightButton_Click" Width="30" Height="30" Canvas.Left="218" Canvas.Top="290"/>
+                    </Canvas>
+
                 </Grid>
 
             </Grid>

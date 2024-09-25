@@ -241,7 +241,6 @@ namespace _2pm_Desktop.model
                 }
             }
         }
-
         public static async Task<string> punchout(int type, bool isDefault, Dictionary<string, string> additionalFormData = null)
         {
             using (HttpClient client = new HttpClient())

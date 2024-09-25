@@ -17,6 +17,8 @@ using Newtonsoft.Json.Linq;
 
 using MediaColor = System.Windows.Media.Color;
 using Newtonsoft.Json;
+using _2pm_Desktop.model;
+using _2pm_Desktop.view;
 
 namespace _2pm_Desktop
 {
@@ -299,7 +301,7 @@ namespace _2pm_Desktop
             }
         }
 
-        private void punchIn_click(object sender, RoutedEventArgs e)
+        private async void punchIn_click(object sender, RoutedEventArgs e)
         {
             play.IsEnabled = false;
             pause.IsEnabled = true;
@@ -320,12 +322,14 @@ namespace _2pm_Desktop
             }
 
             timer.Start();
+            string response = await requestEngine.punchin();
+            if (response == "true") { System.Diagnostics.Debug.WriteLine("Punch in success!"); } else { System.Diagnostics.Debug.WriteLine("Faild attempt to punch in !"); }
             StartScreenshotProcess(true);
             isPaused = false;
 
         }
 
-        private void breakIn_click(object sender, RoutedEventArgs e)
+        private async void breakIn_click(object sender, RoutedEventArgs e)
         {
             play.IsEnabled = false;
             pause.IsEnabled = false;
@@ -340,12 +344,14 @@ namespace _2pm_Desktop
             subtile.Content = "Paused";
 
             timer.Stop();
+            string response = await requestEngine.breakin();
+            if (response == "true") { System.Diagnostics.Debug.WriteLine("break in success!"); } else { System.Diagnostics.Debug.WriteLine("break in faild!"); }
             StartScreenshotProcess(false);
             isPaused = true;
 
         }
 
-        private void punchOut_click(object sender, RoutedEventArgs e)
+        private async void punchOut_click(object sender, RoutedEventArgs e)
         {
             play.IsEnabled = true;
             pause.IsEnabled = false;
@@ -360,14 +366,66 @@ namespace _2pm_Desktop
             subtile.Content = "Stopped";
 
             timer.Stop();
+            //string response1 = await requestEngine.punchout();
+            //if (response1 == "true") { System.Diagnostics.Debug.WriteLine("punch out success!"); } else { System.Diagnostics.Debug.WriteLine("punch out faild!"); }
+
             StartScreenshotProcess(false);
             elapsedTime = TimeSpan.Zero;
             timeLabel.Content = "00:00:00";
             isPaused = false;
 
+            reportScreen.Visibility = Visibility.Visible;
+            homeScreen.Visibility = Visibility.Hidden;
+
+            addreport(this);
+
+
         }
 
-        private void breakOut_click(object sender, RoutedEventArgs e)
+
+        private void addreport(MainWindow win)
+        {
+            reportView.Content = reportPnaelView;
+            report rp = new report(win);
+            rp.id = "1";
+            rp.title = "Daily Report";
+            rp.subtitle = "Please fill out what you have done in the provided time frame";
+            rp.input = "";
+            reportPnaelView.Children.Add(rp);
+
+            report rp1 = new report(win);
+            rp1.id = "2";
+            rp1.title = "Hour Report";
+            rp1.subtitle = "Please fill out what you have done in the provided time frame";
+            rp1.input = "";
+            reportPnaelView.Children.Add(rp1);
+            //total = reportPnaelView.Children.Count;
+
+            report rp3 = new report(win);
+            rp3.id = "3";
+            rp3.title = "Hour Report";
+            rp3.subtitle = "Please fill out what you have done in the provided time frame";
+            rp3.input = "";
+            reportPnaelView.Children.Add(rp3);
+            //total = reportPnaelView.Children.Count;
+
+
+        }
+
+        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Scroll left by a fixed amount (e.g., 100 pixels)
+            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset - 100); // Adjust as needed
+        }
+
+        private void RightButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Scroll right by a fixed amount (e.g., 100 pixels)
+            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset + 100); // Adjust as needed
+        }
+
+
+        private async void breakOut_click(object sender, RoutedEventArgs e)
         {
             play.IsEnabled = false;
             pause.IsEnabled = true;
@@ -385,6 +443,8 @@ namespace _2pm_Desktop
             {
                 timer.Start();
                 StartScreenshotProcess(true);
+                string response = await requestEngine.breakout();
+                if (response == "true") { System.Diagnostics.Debug.WriteLine("break out success!"); } else { System.Diagnostics.Debug.WriteLine("break out faild!"); }
 
             }
 

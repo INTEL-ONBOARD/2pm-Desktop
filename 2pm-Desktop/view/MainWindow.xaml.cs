@@ -28,6 +28,8 @@ namespace _2pm_Desktop
         private bool _isConnected;
         private bool _keepChecking;
 
+        private bool _isReportRequired;
+
         List<Process> processList = new List<Process>();
         private bool multipleRunCount;
         Process[] processes;
@@ -235,6 +237,9 @@ namespace _2pm_Desktop
                 defaultScreen.Visibility = Visibility.Hidden;
                 status.Content = "";
                 homeScreen.Visibility = Visibility.Visible;
+
+                _isReportRequired = await model.requestEngine.IsUserInDepartmentAsync();
+                System.Diagnostics.Debug.WriteLine(_isReportRequired);
                 //homePane.Visibility = Visibility.Visible;
                 //attendencePane.Visibility = Visibility.Hidden;
 

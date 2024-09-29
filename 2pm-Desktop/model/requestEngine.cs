@@ -32,6 +32,9 @@ namespace _2pm_Desktop.model
         //}
 
 
+        // Assuming this is a class-level variable
+ // Declare a class-level token variable
+
         public static async Task<string> logInUser(string une, string pwd)
         {
             using (HttpClient client = new HttpClient())
@@ -64,9 +67,9 @@ namespace _2pm_Desktop.model
                     // Check the 'success' field in the JSON response
                     if (responseData.success == true)
                     {
-                        token = responseData.token;
+                        // Correctly access the token from the response
+                        token = responseData.data.token; // Change this line to access the token correctly
                         return "true";
-
                     }
                     else
                     {
@@ -75,10 +78,12 @@ namespace _2pm_Desktop.model
                 }
                 catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
                     return "false";
                 }
             }
         }
+
         public static async Task<string> logOutUser()
         {
 
@@ -299,6 +304,45 @@ namespace _2pm_Desktop.model
                 }
             }
         }
+
+        public static async Task<bool> IsUserInDepartmentAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://2pm.revostack.com");
+                System.Diagnostics.Debug.WriteLine("here is the token : " + token);
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                // Set headers for the request
+                client.DefaultRequestHeaders.Add("Accept", "application/json");  // Expecting a JSON response
+                client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+
+                try
+                {
+                    HttpResponseMessage myHttpResponse = await client.GetAsync("/api/v1/user-profile");
+
+                    if (myHttpResponse.IsSuccessStatusCode)
+                    {
+                        string responseContent = await myHttpResponse.Content.ReadAsStringAsync();
+                        dynamic jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                        int departmentId = jsonResponse.data.user_detail.department;
+
+                        return departmentId == 4;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Response Status Code: {myHttpResponse.StatusCode}");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
 
 
 

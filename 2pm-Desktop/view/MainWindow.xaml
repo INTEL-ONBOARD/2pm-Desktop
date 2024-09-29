@@ -705,6 +705,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         <Image Source="/view/back.png" />
                     </Button>
                 </Grid>
+                
                 <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Hidden">
 
 

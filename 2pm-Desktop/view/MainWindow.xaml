@@ -395,7 +395,6 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
 
                 </Grid>
 
-
                 <Grid x:Name="homeScreen" Margin="23,36,23,29" Visibility="Hidden">
 
                     <Button x:Name="play" Style="{StaticResource btncutsomstylePlain}" 
@@ -740,7 +739,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
         Width="204" 
         Cursor="Hand" 
         FontWeight="Medium" 
-        FontSize="16">
+        FontSize="16" Click="done">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <!-- Normal State -->

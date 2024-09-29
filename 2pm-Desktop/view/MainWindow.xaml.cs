@@ -239,7 +239,7 @@ namespace _2pm_Desktop
                 homeScreen.Visibility = Visibility.Visible;
 
                 _isReportRequired = await model.requestEngine.IsUserInDepartmentAsync();
-                System.Diagnostics.Debug.WriteLine(_isReportRequired);
+                //System.Diagnostics.Debug.WriteLine(_isReportRequired);
                 //homePane.Visibility = Visibility.Visible;
                 //attendencePane.Visibility = Visibility.Hidden;
 
@@ -362,15 +362,36 @@ namespace _2pm_Desktop
             pause.IsEnabled = false;
             resume.IsEnabled = false;
             stop.IsEnabled = false;
-            play.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            play.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255));
+            pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
+            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
+            stop.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Stopped";
 
             timer.Stop();
+            string lastStoppedTime = elapsedTime.ToString(@"hh\:mm\:ss");
+            System.Diagnostics.Debug.WriteLine($"Punch Out at: {lastStoppedTime}");
+
+            int totalHours = (int)Math.Ceiling(elapsedTime.TotalHours);
+            System.Diagnostics.Debug.WriteLine($"Total Hours (rounded): {totalHours}");
+
+            if (_isReportRequired)
+            {
+                for (int i = 0; i < totalHours; i++)
+                {
+                    addreportHourly(this);
+                }
+
+                addreportDaily(this);
+            }
+            else
+            {
+                addreportDaily(this);
+            }
+
+
             //string response1 = await requestEngine.punchout();
             //if (response1 == "true") { System.Diagnostics.Debug.WriteLine("punch out success!"); } else { System.Diagnostics.Debug.WriteLine("punch out faild!"); }
 
@@ -381,14 +402,11 @@ namespace _2pm_Desktop
 
             reportScreen.Visibility = Visibility.Visible;
             homeScreen.Visibility = Visibility.Hidden;
-
-            addreport(this);
-
-
         }
 
 
-        private void addreport(MainWindow win)
+
+        private void addreportDaily(MainWindow win)
         {
             reportView.Content = reportPnaelView;
             report rp = new report(win);
@@ -398,34 +416,18 @@ namespace _2pm_Desktop
             rp.input = "";
             reportPnaelView.Children.Add(rp);
 
-            report rp1 = new report(win);
-            rp1.id = "2";
-            rp1.title = "Hour Report";
-            rp1.subtitle = "Please fill out what you have done in the provided time frame";
-            rp1.input = "";
-            reportPnaelView.Children.Add(rp1);
-            //total = reportPnaelView.Children.Count;
-
-            report rp3 = new report(win);
-            rp3.id = "3";
-            rp3.title = "Hour Report";
-            rp3.subtitle = "Please fill out what you have done in the provided time frame";
-            rp3.input = "";
-            reportPnaelView.Children.Add(rp3);
-            //total = reportPnaelView.Children.Count;
-
-
         }
 
-        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        private void addreportHourly(MainWindow win)
         {
-            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset - 250);
-        }
+            reportView.Content = reportPnaelView;
+            report rp = new report(win);
+            rp.id = "1";
+            rp.title = "Hour Report";
+            rp.subtitle = "Please fill out what you have done in the provided time frame";
+            rp.input = "";
+            reportPnaelView.Children.Add(rp);
 
-        private void RightButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset + 250); 
         }
 
 
@@ -582,10 +584,8 @@ namespace _2pm_Desktop
         {
             string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserSettings.json");
 
-            // Check if the file exists
             if (!File.Exists(filePath))
             {
-                // Create an empty settings file with default values
                 var defaultSettings = new
                 {
                     Username = string.Empty,
@@ -602,11 +602,9 @@ namespace _2pm_Desktop
                 File.WriteAllText(filePath, defaultJson);
             }
 
-            // Read the existing JSON data
             string json = File.ReadAllText(filePath);
             dynamic jsonObj = JsonConvert.DeserializeObject(json);
 
-            // Retrieve the specified key value
             switch (key)
             {
                 case "Username":
@@ -626,6 +624,24 @@ namespace _2pm_Desktop
 
         private void issale_Checked(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        {
+            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset - 250);
+        }
+
+        private void RightButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset + 250);
+        }
+
+        private void done(object sender, RoutedEventArgs e)
+        {
+            homeScreen.Visibility = Visibility.Visible;
+            reportScreen.Visibility = Visibility.Hidden;
 
         }
     }

@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             Height="200" Width="200" OpacityMask="#FFE02121" Margin="25">
+             Height="166" Width="199" OpacityMask="#FFE02121" Margin="25">
     <Grid Background="Transparent">
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="20" Background="Transparent" Margin="0,10,0,0">
+        <Border BorderBrush="White" BorderThickness="1" CornerRadius="20" Background="Transparent" Margin="0,0,0,0">
             <TextBox Text="{Binding title}" 
                      HorizontalAlignment="Center" 
                      VerticalAlignment="Center" 
-                     Width="180" 
-                     Height="180" 
+                     Width="178" 
+                     Height="146" 
                      TextWrapping="Wrap" 
                      AcceptsReturn="True" 
                      Background="Transparent" 

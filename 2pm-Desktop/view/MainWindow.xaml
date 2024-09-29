@@ -704,7 +704,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         <Image Source="/view/back.png" />
                     </Button>
                 </Grid>
-                <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Visible">
+                <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Hidden">
 
 
 
@@ -713,7 +713,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                       VerticalScrollBarVisibility="Hidden" 
                       PanningMode="HorizontalFirst" 
                       PanningDeceleration="1" Height="239" Margin="0,56,0,35">
-                        <StackPanel x:Name="reportPnaelView" Width="800" Orientation="Horizontal">
+                        <StackPanel x:Name="reportPnaelView" Orientation="Horizontal" Height="229">
                             <!-- Content will be added here -->
                         </StackPanel>
                     </ScrollViewer>

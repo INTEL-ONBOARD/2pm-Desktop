@@ -15,6 +15,8 @@
     <None Remove="view\1484.gif" />
     <None Remove="view\back-button.png" />
     <None Remove="view\back.png" />
+    <None Remove="view\caret-left.png" />
+    <None Remove="view\caret-right.png" />
     <None Remove="view\circle-xmark %281%29.png" />
     <None Remove="view\Content.png" />
     <None Remove="view\cross %281%29.png" />
@@ -44,6 +46,8 @@
     <Resource Include="view\1484.gif" />
     <Resource Include="view\back-button.png" />
     <Resource Include="view\back.png" />
+    <Resource Include="view\caret-left.png" />
+    <Resource Include="view\caret-right.png" />
     <Resource Include="view\circle-xmark (1).png" />
     <Resource Include="view\Content.png" />
     <Resource Include="view\cross (1).png" />

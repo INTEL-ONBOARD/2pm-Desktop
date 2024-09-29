@@ -704,10 +704,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         <Image Source="/view/back.png" />
                     </Button>
                 </Grid>
-                <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Hidden">
-                    <Grid.Background>
-                        <SolidColorBrush Color="#FFC82222" Opacity="0.1"/>
-                    </Grid.Background>
+                <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Visible">
 
 
 
@@ -715,7 +712,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                       HorizontalScrollBarVisibility="Hidden" 
                       VerticalScrollBarVisibility="Hidden" 
                       PanningMode="HorizontalFirst" 
-                      PanningDeceleration="1" Height="239">
+                      PanningDeceleration="1" Height="239" Margin="0,56,0,35">
                         <StackPanel x:Name="reportPnaelView" Width="800" Orientation="Horizontal">
                             <!-- Content will be added here -->
                         </StackPanel>
@@ -725,9 +722,15 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
 
                     <!-- Position buttons using Canvas -->
                     <Canvas>
-                        <Button x:Name="LeftButton" Content="←" Click="LeftButton_Click" Width="30" Height="30" Canvas.Left="10" Canvas.Top="290" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Button x:Name="RightButton" Content="→" Click="RightButton_Click" Width="30" Height="30" Canvas.Left="218" Canvas.Top="290"/>
+                        <Button x:Name="LeftButton" Style="{StaticResource btncutsomstylePlain}" Click="LeftButton_Click" Width="30" Height="30" Canvas.Left="10" Canvas.Top="29" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <Image Source="/view/caret-left.png" />
+                        </Button>
+                        <Button x:Name="RightButton" Style="{StaticResource btncutsomstylePlain}" Click="RightButton_Click" Width="30" Height="30" Canvas.Left="218" Canvas.Top="29" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <Image Source="/view/caret-right.png" />
+                        </Button>
                     </Canvas>
+                    <Button Content="Done" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Top" Width="53"/>
+                    <Label Content="report" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Foreground="#FF8C8C8C"/>
 
                 </Grid>
 

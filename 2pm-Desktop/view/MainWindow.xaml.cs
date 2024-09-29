@@ -414,14 +414,13 @@ namespace _2pm_Desktop
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)
         {
-            // Scroll left by a fixed amount (e.g., 100 pixels)
-            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset - 100); // Adjust as needed
+            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset - 250);
         }
 
         private void RightButton_Click(object sender, RoutedEventArgs e)
         {
-            // Scroll right by a fixed amount (e.g., 100 pixels)
-            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset + 100); // Adjust as needed
+
+            reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset + 250); 
         }
 
 

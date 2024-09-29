@@ -731,63 +731,73 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         </Button>
                     </Canvas>
                     <Button Content="Done" 
-                        HorizontalAlignment="Center" 
-                        Height="35" 
-                        Margin="0,289,0,0" 
-                        VerticalAlignment="Top" 
-                        VerticalContentAlignment="Center" 
-                        Width="204" 
-                        Cursor="Hand" 
-                        FontWeight="Medium" 
-                        FontSize="16">
+        HorizontalAlignment="Center" 
+        Height="35" 
+        Margin="0,286,0,0" 
+        VerticalAlignment="Top" 
+        VerticalContentAlignment="Center" 
+        Width="204" 
+        Cursor="Hand" 
+        FontWeight="Medium" 
+        FontSize="16">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="White"/>
-                                <Setter Property="Foreground" Value="#F0A459"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <!-- Normal State -->
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="BorderBrush" Value="#808080"/>
+                                <!-- Grey color border -->
+
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="18"
-                        RenderTransformOrigin="0.5,0.5">
-                                                <!-- Center of the border -->
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="18"
+                                RenderTransformOrigin="0.5,0.5">
+                                                <!-- Ensure ScaleTransform is correctly defined -->
                                                 <Border.RenderTransform>
                                                     <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
                                                 </Border.RenderTransform>
+
                                                 <ContentPresenter HorizontalAlignment="Center" 
-                                      VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"/>
                                             </Border>
+
+                                            <!-- Correct triggers for hover effect -->
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
+                                                    <!-- Change to hover colors -->
+                                                    <Setter Property="Background" Value="White"/>
+                                                    <Setter Property="Foreground" Value="#F0A459"/>
+                                                    <!-- Orange text color -->
+
                                                     <Trigger.EnterActions>
                                                         <BeginStoryboard>
                                                             <Storyboard>
-                                                                <DoubleAnimation 
-                                        Storyboard.TargetName="scaleTransform" 
-                                        Storyboard.TargetProperty="ScaleX" 
-                                        To="0.95" Duration="0:0:0.1"/>
-                                                                <DoubleAnimation 
-                                        Storyboard.TargetName="scaleTransform" 
-                                        Storyboard.TargetProperty="ScaleY" 
-                                        To="0.95" Duration="0:0:0.1"/>
+                                                                <!-- Scale transform for hover effect -->
+                                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             To="0.95" Duration="0:0:0.1"/>
+                                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                             Storyboard.TargetProperty="ScaleY"
+                                                             To="0.95" Duration="0:0:0.1"/>
                                                             </Storyboard>
                                                         </BeginStoryboard>
                                                     </Trigger.EnterActions>
+
                                                     <Trigger.ExitActions>
                                                         <BeginStoryboard>
                                                             <Storyboard>
-                                                                <DoubleAnimation 
-                                        Storyboard.TargetName="scaleTransform" 
-                                        Storyboard.TargetProperty="ScaleX" 
-                                        To="1" Duration="0:0:0.1"/>
-                                                                <DoubleAnimation 
-                                        Storyboard.TargetName="scaleTransform" 
-                                        Storyboard.TargetProperty="ScaleY" 
-                                        To="1" Duration="0:0:0.1"/>
+                                                                <!-- Reset scale on hover exit -->
+                                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                             Storyboard.TargetProperty="ScaleX"
+                                                             To="1" Duration="0:0:0.1"/>
+                                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                             Storyboard.TargetProperty="ScaleY"
+                                                             To="1" Duration="0:0:0.1"/>
                                                             </Storyboard>
                                                         </BeginStoryboard>
                                                     </Trigger.ExitActions>
@@ -799,6 +809,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                             </Style>
                         </Button.Style>
                     </Button>
+
                     <Label Content="report" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Foreground="#FF8C8C8C"/>
 
                 </Grid>

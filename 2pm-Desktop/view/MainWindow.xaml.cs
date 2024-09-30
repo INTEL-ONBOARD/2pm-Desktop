@@ -262,9 +262,20 @@ namespace _2pm_Desktop
             }
         }
 
-        private void clickExit(object sender, RoutedEventArgs e)
+        private async void clickExit(object sender, RoutedEventArgs e)
         {
+
+            loadingScreen.Visibility = Visibility.Hidden;
+            loginScreen.Visibility = Visibility.Hidden;
+            homeScreen.Visibility = Visibility.Hidden;
+            settingScreen.Visibility = Visibility.Hidden;
+            reportScreen.Visibility = Visibility.Hidden;
+            defaultScreen.Visibility = Visibility.Visible;
+            status.Visibility= Visibility.Visible;
+            status.Content = "Saving please wait...";
+            await Task.Delay(800);
             this.Close();
+
         }
 
         private async void clickLogout(object sender, RoutedEventArgs e)

@@ -435,7 +435,7 @@ namespace _2pm_Desktop.model
                     System.Diagnostics.Debug.WriteLine($"Response Content: {responseContent}");
 
                     
-                    return myHttpResponse.IsSuccessStatusCode ? responseContent : "false"; 
+                    return myHttpResponse.IsSuccessStatusCode ? "true" : "false"; 
                 }
                 catch (Exception ex)
                 {

@@ -209,7 +209,6 @@
                     </Grid.Triggers>
                 </Grid>
 
-
                 <Grid x:Name="loadingScreen" Margin="23,36,23,29" Visibility="Hidden">
                     <Grid.Background>
                         <SolidColorBrush Color="Black" Opacity="0"/>
@@ -237,7 +236,6 @@
                         </EventTrigger>
                     </Grid.Triggers>
                 </Grid>
-
 
                 <Grid x:Name="loginScreen" Margin="23,36,23,29" Visibility="Hidden">
 
@@ -267,7 +265,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                             <Label Content="Password" HorizontalAlignment="Left" Margin="38,128,0,0" VerticalAlignment="Top" Foreground="White" Background="#FF232325" Width="59" Height="16" Padding="5,0,5,0" Grid.IsSharedSizeScope="True"/>
 
                             <Label Content="Username" HorizontalAlignment="Left" Margin="34,78,0,0" VerticalAlignment="Top" Foreground="White" Padding="5,0,5,0" Background="#FF232325"/>
-                            <TextBlock HorizontalAlignment="Center" Margin="0,29,0,0" TextWrapping="Wrap" Text="Please provide ypur 2pm 
+                            <TextBlock HorizontalAlignment="Center" Margin="0,29,0,0" TextWrapping="Wrap" Text="Please provide your 2pm 
                                        credentials to log into your account" VerticalAlignment="Top" Width="189" Foreground="#FF8A8A8A" TextAlignment="Center"/>
                             <CheckBox x:Name="StayLoggedInCheckbox" 
                   HorizontalAlignment="Left" 

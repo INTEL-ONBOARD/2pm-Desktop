@@ -661,20 +661,48 @@ namespace _2pm_Desktop
 
         private async void done(object sender, RoutedEventArgs e)
         {
+            defaultScreen.Visibility = Visibility.Visible;
 
-            string result  = await requestEngine.UploadReportData(this);
-            if (result.Equals("true"))
+            homeScreen.Visibility = Visibility.Hidden;
+            reportScreen.Visibility = Visibility.Hidden;
+            status.Content = "checking....";
+
+            try
             {
-                homeScreen.Visibility = Visibility.Visible;
-                reportScreen.Visibility = Visibility.Hidden;
-                reportPnaelView.Children.Clear();
-            }else
-            {
-                homeScreen.Visibility = Visibility.Hidden;
-                reportScreen.Visibility = Visibility.Visible;
+                string result = await requestEngine.UploadReportData(this);
+
+                if (result.Equals("true"))
+                {
+                    status.Content = "";
+                    homeScreen.Visibility = Visibility.Visible;
+                    reportScreen.Visibility = Visibility.Hidden;
+
+                }
+                else
+                {
+                    status.Visibility = Visibility.Visible;
+                    status.Content = "Reprot submission faild. Try again!";
+                    reportScreen.Visibility = Visibility.Visible;
+                    homeScreen.Visibility = Visibility.Hidden;
+
+
+                }
             }
-
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                defaultScreen.Visibility = Visibility.Hidden;
+                if (homeScreen.Visibility == Visibility.Visible)
+                {
+                    status.Content = "";
+                    reportPnaelView.Children.Clear();
+                }
+            }
         }
+
     }
 }
 

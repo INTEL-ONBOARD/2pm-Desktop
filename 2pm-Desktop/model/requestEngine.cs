@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using _2pm_Desktop.view;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 
 namespace _2pm_Desktop.model
 {
@@ -345,106 +346,198 @@ namespace _2pm_Desktop.model
             }
         }
 
+
+
         public static async Task<string> UploadReportData(MainWindow win)
-        {
-            using (HttpClient client = new HttpClient())
             {
-
-                client.BaseAddress = new Uri("https://2pm.revostack.com");
-
-                client.DefaultRequestHeaders.Add("Accept", "*/*");
-                client.DefaultRequestHeaders.Add("Connection", "keep-alive");
-
-
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-                try
+                using (HttpClient client = new HttpClient())
                 {
-                    
-                    var formData = new List<KeyValuePair<string, string>>
-            {
-                { new KeyValuePair<string, string>("type", "4") } 
-            };
+                    client.BaseAddress = new Uri("https://2pm.revostack.com");
 
-                    
-                    int hourlyReportIndex = 0;
-                    bool dailyReportAdded = false;
+                    client.DefaultRequestHeaders.Add("Accept", "*/*");
+                    client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-                    foreach (var child in win.reportPnaelView.Children) 
+                    try
                     {
-                        
-                        System.Diagnostics.Debug.WriteLine($"Child Type: {child.GetType().Name}");
+                        var formData = new List<KeyValuePair<string, string>>
+                    {
+                        { new KeyValuePair<string, string>("type", "4") }
+                    };
 
-                        
-                        if (child is report rp)
+                        int hourlyReportIndex = 0;
+                        bool dailyReportAdded = false;
+
+                        foreach (var child in win.reportPnaelView.Children)
                         {
-                            
-                            System.Diagnostics.Debug.WriteLine($"Report ID: {rp.id}");
-                            System.Diagnostics.Debug.WriteLine($"Report Input: {rp.input}");
+                            System.Diagnostics.Debug.WriteLine($"Child Type: {child.GetType().Name}");
 
-                            
-                            if (rp.id == "0")
+                            if (child is report rp)
                             {
-                                formData.Add(new KeyValuePair<string, string>("daily_report", rp.input.ToString())); 
-                                System.Diagnostics.Debug.WriteLine($"Daily report added: {rp.input}");
-                                dailyReportAdded = true; 
+                                System.Diagnostics.Debug.WriteLine($"Report ID: {rp.id}");
+                                System.Diagnostics.Debug.WriteLine($"Report Input: {rp.input}");
+
+                                if (rp.id == "0")
+                                {
+                                    formData.Add(new KeyValuePair<string, string>("daily_report", rp.input.ToString()));
+                                    System.Diagnostics.Debug.WriteLine($"Daily report added: {rp.input}");
+                                    dailyReportAdded = true;
+                                }
+                                else
+                                {
+                                    formData.Add(new KeyValuePair<string, string>($"hourly_report[{hourlyReportIndex}][hour]", hourlyReportIndex.ToString()));
+                                    formData.Add(new KeyValuePair<string, string>($"hourly_report[{hourlyReportIndex}][report]", rp.input.ToString()));
+                                    System.Diagnostics.Debug.WriteLine($"Hourly report {hourlyReportIndex} added: {rp.input}");
+                                    hourlyReportIndex++;
+                                }
                             }
-                            
                             else
                             {
-                                formData.Add(new KeyValuePair<string, string>($"hourly_report[{hourlyReportIndex}][hour]", hourlyReportIndex.ToString()));
-                                formData.Add(new KeyValuePair<string, string>($"hourly_report[{hourlyReportIndex}][report]", rp.input.ToString()));
-                                System.Diagnostics.Debug.WriteLine($"Hourly report {hourlyReportIndex} added: {rp.input}");
-                                hourlyReportIndex++;
+                                System.Diagnostics.Debug.WriteLine("Child is not of type 'report'.");
                             }
                         }
-                        else
+
+                        System.Diagnostics.Debug.WriteLine("Form Data:");
+                        foreach (var kvp in formData)
                         {
-                            
-                            System.Diagnostics.Debug.WriteLine("Child is not of type 'report'.");
+                            System.Diagnostics.Debug.WriteLine($"{kvp.Key}: {kvp.Value}");
                         }
-                    }
 
-                    
-                    System.Diagnostics.Debug.WriteLine("Form Data:");
-                    foreach (var kvp in formData)
+                        if (!dailyReportAdded)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Daily report was not added.");
+                        }
+
+                        var content = new FormUrlEncodedContent(formData);
+
+                        string contentString = await content.ReadAsStringAsync();
+                        System.Diagnostics.Debug.WriteLine("+++++++++++++++++++");
+                        System.Diagnostics.Debug.WriteLine(contentString);
+
+                        HttpResponseMessage myHttpResponse = await client.PostAsync("/api/v1/attendance", content);
+
+                        System.Diagnostics.Debug.WriteLine("---------------------------------------------------");
+                        System.Diagnostics.Debug.WriteLine($"Status Code: {myHttpResponse.StatusCode}");
+                        string responseContent = await myHttpResponse.Content.ReadAsStringAsync();
+                        System.Diagnostics.Debug.WriteLine($"Response Content: {responseContent}");
+
+                        // Parse the JSON response to check for "success" field
+                        var jsonResponse = JObject.Parse(responseContent);
+                        bool success = jsonResponse.Value<bool>("success");
+
+                        // Return true if "success" is true, else false
+                        return success ? "true" : "false";
+                    }
+                    catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine($"{kvp.Key}: {kvp.Value}");
+                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                        return "false";
                     }
-
-                    
-                    if (!dailyReportAdded)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Daily report was not added.");
-                    }
-
-                    var content = new FormUrlEncodedContent(formData);
-
-                    
-                    string contentString = await content.ReadAsStringAsync();
-                    System.Diagnostics.Debug.WriteLine("+++++++++++++++++++");
-                    System.Diagnostics.Debug.WriteLine(contentString);
-
-                    
-                    HttpResponseMessage myHttpResponse = await client.PostAsync("/api/v1/attendance", content);
-
-                    
-                    System.Diagnostics.Debug.WriteLine("---------------------------------------------------");
-                    System.Diagnostics.Debug.WriteLine($"Status Code: {myHttpResponse.StatusCode}");
-                    string responseContent = await myHttpResponse.Content.ReadAsStringAsync();
-                    System.Diagnostics.Debug.WriteLine($"Response Content: {responseContent}");
-
-                    
-                    return myHttpResponse.IsSuccessStatusCode ? "true" : "false"; 
-                }
-                catch (Exception ex)
-                {
-           
-                    System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-                    return "false";
                 }
             }
-        }
+
+
+
+    //public static async Task<string> UploadReportData(MainWindow win)
+    //{
+    //    using (HttpClient client = new HttpClient())
+    //    {
+
+    //        client.BaseAddress = new Uri("https://2pm.revostack.com");
+
+    //        client.DefaultRequestHeaders.Add("Accept", "*/*");
+    //        client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+
+
+    //        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+    //        try
+    //        {
+
+    //            var formData = new List<KeyValuePair<string, string>>
+    //    {
+    //        { new KeyValuePair<string, string>("type", "4") } 
+    //    };
+
+
+    //            int hourlyReportIndex = 0;
+    //            bool dailyReportAdded = false;
+
+    //            foreach (var child in win.reportPnaelView.Children) 
+    //            {
+
+    //                System.Diagnostics.Debug.WriteLine($"Child Type: {child.GetType().Name}");
+
+
+    //                if (child is report rp)
+    //                {
+
+    //                    System.Diagnostics.Debug.WriteLine($"Report ID: {rp.id}");
+    //                    System.Diagnostics.Debug.WriteLine($"Report Input: {rp.input}");
+
+
+    //                    if (rp.id == "0")
+    //                    {
+    //                        formData.Add(new KeyValuePair<string, string>("daily_report", rp.input.ToString())); 
+    //                        System.Diagnostics.Debug.WriteLine($"Daily report added: {rp.input}");
+    //                        dailyReportAdded = true; 
+    //                    }
+
+    //                    else
+    //                    {
+    //                        formData.Add(new KeyValuePair<string, string>($"hourly_report[{hourlyReportIndex}][hour]", hourlyReportIndex.ToString()));
+    //                        formData.Add(new KeyValuePair<string, string>($"hourly_report[{hourlyReportIndex}][report]", rp.input.ToString()));
+    //                        System.Diagnostics.Debug.WriteLine($"Hourly report {hourlyReportIndex} added: {rp.input}");
+    //                        hourlyReportIndex++;
+    //                    }
+    //                }
+    //                else
+    //                {
+
+    //                    System.Diagnostics.Debug.WriteLine("Child is not of type 'report'.");
+    //                }
+    //            }
+
+
+    //            System.Diagnostics.Debug.WriteLine("Form Data:");
+    //            foreach (var kvp in formData)
+    //            {
+    //                System.Diagnostics.Debug.WriteLine($"{kvp.Key}: {kvp.Value}");
+    //            }
+
+
+    //            if (!dailyReportAdded)
+    //            {
+    //                System.Diagnostics.Debug.WriteLine("Daily report was not added.");
+    //            }
+
+    //            var content = new FormUrlEncodedContent(formData);
+
+
+    //            string contentString = await content.ReadAsStringAsync();
+    //            System.Diagnostics.Debug.WriteLine("+++++++++++++++++++");
+    //            System.Diagnostics.Debug.WriteLine(contentString);
+
+
+    //            HttpResponseMessage myHttpResponse = await client.PostAsync("/api/v1/attendance", content);
+
+
+    //            System.Diagnostics.Debug.WriteLine("---------------------------------------------------");
+    //            System.Diagnostics.Debug.WriteLine($"Status Code: {myHttpResponse.StatusCode}");
+    //            string responseContent = await myHttpResponse.Content.ReadAsStringAsync();
+    //            System.Diagnostics.Debug.WriteLine($"Response Content: {responseContent}");
+
+
+    //            return myHttpResponse.IsSuccessStatusCode ? "true" : "false"; 
+    //        }
+    //        catch (Exception ex)
+    //        {
+
+    //            System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+    //            return "false";
+    //        }
+    //    }
+    //}
 
 
 

@@ -37,7 +37,7 @@ namespace _2pm_Desktop.view
 
         private void getDataSave(object sender, MouseEventArgs e)
         {
-
+            window.status.Content = "";
             if (datainput.Text.Length > 50)
             {
                 this.input = datainput.Text;
@@ -50,6 +50,7 @@ namespace _2pm_Desktop.view
 
         private void getClear(object sender, MouseEventArgs e)
         {
+            window.status.Content = "";
             window.reportlabel.Content = this.title.ToString();
             if (datainput.Text.Equals("type here")) { datainput.Clear(); }
         }

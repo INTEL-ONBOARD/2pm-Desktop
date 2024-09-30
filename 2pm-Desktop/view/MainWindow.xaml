@@ -711,7 +711,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                       HorizontalScrollBarVisibility="Hidden" 
                       VerticalScrollBarVisibility="Hidden" 
                       PanningMode="HorizontalFirst" 
-                      PanningDeceleration="1" Height="239" Margin="0,71,0,20">
+                      PanningDeceleration="1" Height="239" Margin="16,65,16,26" Width="225">
                         <StackPanel x:Name="reportPnaelView" Orientation="Horizontal" Height="229">
                             <!-- Content will be added here -->
                         </StackPanel>

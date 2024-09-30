@@ -7,17 +7,28 @@
              Height="166" Width="210" OpacityMask="#FFE02121" Margin="20">
     <Grid Background="Transparent">
         <Border BorderBrush="White" BorderThickness="1" CornerRadius="20" Background="Transparent" Margin="0,0,0,0">
-            <TextBox x:Name="datainput" Text="type here" 
-                     HorizontalAlignment="Center" 
-                     VerticalAlignment="Center" 
-                     Width="178" 
-                     Height="146" 
-                     TextWrapping="Wrap" 
-                     AcceptsReturn="True" 
-                     Background="Transparent" 
-                     Foreground="White" 
-                     BorderBrush="White" 
-                     BorderThickness="0" MouseLeave="getDataSave" MouseEnter="getClear"/>
+            <TextBox x:Name="datainput" 
+         Text="type here" 
+         HorizontalAlignment="Center" 
+         VerticalAlignment="Center" 
+         Width="178" 
+         Height="146" 
+         TextWrapping="Wrap" 
+         AcceptsReturn="True" 
+         Background="Transparent" 
+         Foreground="White" 
+         BorderBrush="White" 
+         BorderThickness="0" 
+         MouseLeave="getDataSave" 
+         MouseEnter="getClear">
+                <TextBox.ToolTip>
+                    <ToolTip Content="{Binding title}" 
+                 Background="Gray" 
+                 Foreground="White" 
+                 FontSize="12" />
+                </TextBox.ToolTip>
+            </TextBox>
+
         </Border>
     </Grid>
 </UserControl>

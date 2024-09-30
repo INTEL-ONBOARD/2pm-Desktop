@@ -50,6 +50,7 @@ namespace _2pm_Desktop.view
 
         private void getClear(object sender, MouseEventArgs e)
         {
+            window.reportlabel.Content = this.title.ToString();
             if (datainput.Text.Equals("type here")) { datainput.Clear(); }
         }
     }

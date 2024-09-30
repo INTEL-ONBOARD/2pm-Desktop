@@ -661,13 +661,19 @@ namespace _2pm_Desktop
 
         private async void done(object sender, RoutedEventArgs e)
         {
-            // Switch back to home screen and hide report screen
-            homeScreen.Visibility = Visibility.Visible;
-            reportScreen.Visibility = Visibility.Hidden;
 
-            // Call the function to upload the form data
-            await requestEngine.UploadReportData(this);
-            reportPnaelView.Children.Clear();
+            string result  = await requestEngine.UploadReportData(this);
+            if (result.Equals("true"))
+            {
+                homeScreen.Visibility = Visibility.Visible;
+                reportScreen.Visibility = Visibility.Hidden;
+                reportPnaelView.Children.Clear();
+            }else
+            {
+                homeScreen.Visibility = Visibility.Hidden;
+                reportScreen.Visibility = Visibility.Visible;
+            }
+
         }
     }
 }

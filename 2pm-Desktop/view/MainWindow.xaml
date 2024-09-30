@@ -808,7 +808,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         </Button.Style>
                     </Button>
 
-                    <Label Content="report" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Foreground="#FF8C8C8C"/>
+                    <Label x:Name="reportlabel" Content="report" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Foreground="#FF8C8C8C"/>
 
                 </Grid>
 

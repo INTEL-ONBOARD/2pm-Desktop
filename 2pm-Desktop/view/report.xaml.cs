@@ -26,13 +26,14 @@ namespace _2pm_Desktop.view
         public string title { get; set; }
         public string subtitle { get; set; }
         public string input { get; set; }
+        private string contentType;
 
         public report(MainWindow win)
         {
             InitializeComponent();
             this.window = win;
             DataContext = this;
-
+            contentType = this.title;
         }
 
         private void getDataSave(object sender, MouseEventArgs e)
@@ -41,6 +42,11 @@ namespace _2pm_Desktop.view
             if (datainput.Text.Length > 50)
             {
                 this.input = datainput.Text;
+            }
+
+            if (datainput.Text.Length == 0)
+            {
+                datainput.Text = this.title.ToString();
             }
 
             System.Diagnostics.Debug.WriteLine(datainput.Text.Length);
@@ -52,7 +58,7 @@ namespace _2pm_Desktop.view
         {
             window.status.Content = "";
             window.reportlabel.Content = this.title.ToString();
-            if (datainput.Text.Equals("type here")) { datainput.Clear(); }
+            if (datainput.Text.Equals("type here") || datainput.Text.Equals("Daily Report") || datainput.Text.Equals("Hour Report")) { datainput.Clear(); }
         }
     }
 }

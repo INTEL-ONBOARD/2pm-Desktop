@@ -370,8 +370,6 @@ namespace _2pm_Desktop
 
         }
 
-
-
         private async void punchOut_click(object sender, RoutedEventArgs e)
         {
             play.IsEnabled = true;
@@ -421,7 +419,6 @@ namespace _2pm_Desktop
 
         }
 
-
         private void addreportDaily(MainWindow win)
         {
             reportView.Content = reportPnaelView;
@@ -454,8 +451,6 @@ namespace _2pm_Desktop
             rp.input = ""; // Input field for the user
             reportPnaelView.Children.Add(rp); // Add to the report panel
         }
-
-
 
         private async void breakOut_click(object sender, RoutedEventArgs e)
         {

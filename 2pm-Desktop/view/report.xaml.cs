@@ -37,8 +37,20 @@ namespace _2pm_Desktop.view
 
         private void getDataSave(object sender, MouseEventArgs e)
         {
-            this.input = datainput.Text;
+
+            if (datainput.Text.Length > 50)
+            {
+                this.input = datainput.Text;
+            }
+
+            System.Diagnostics.Debug.WriteLine(datainput.Text.Length);
             System.Diagnostics.Debug.WriteLine(this.input);
+
+        }
+
+        private void getClear(object sender, MouseEventArgs e)
+        {
+            if (datainput.Text.Equals("type here")) { datainput.Clear(); }
         }
     }
 }

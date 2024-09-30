@@ -39,6 +39,9 @@ namespace _2pm_Desktop
         private TimeSpan elapsedTime;
         private bool isPaused;
 
+        private int dailyReportId = 0;
+        private int hourlyReportId = 1;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -356,6 +359,8 @@ namespace _2pm_Desktop
 
         }
 
+
+
         private async void punchOut_click(object sender, RoutedEventArgs e)
         {
             play.IsEnabled = true;
@@ -376,24 +381,23 @@ namespace _2pm_Desktop
 
             int totalHours = (int)Math.Ceiling(elapsedTime.TotalHours);
             System.Diagnostics.Debug.WriteLine($"Total Hours (rounded): {totalHours}");
+            
+            
+            System.Diagnostics.Debug.WriteLine($"bool (>>>>): {_isReportRequired}");
 
             if (_isReportRequired)
             {
                 for (int i = 0; i < totalHours; i++)
                 {
-                    addreportHourly(this);
+                    addreportHourly(this); // Add hourly reports
                 }
 
-                addreportDaily(this);
+                addreportDaily(this); // Add daily report
             }
             else
             {
-                addreportDaily(this);
+                addreportDaily(this); // Only add daily report if no hourly report is required
             }
-
-
-            //string response1 = await requestEngine.punchout();
-            //if (response1 == "true") { System.Diagnostics.Debug.WriteLine("punch out success!"); } else { System.Diagnostics.Debug.WriteLine("punch out faild!"); }
 
             StartScreenshotProcess(false);
             elapsedTime = TimeSpan.Zero;
@@ -402,33 +406,44 @@ namespace _2pm_Desktop
 
             reportScreen.Visibility = Visibility.Visible;
             homeScreen.Visibility = Visibility.Hidden;
-        }
 
+
+        }
 
 
         private void addreportDaily(MainWindow win)
         {
             reportView.Content = reportPnaelView;
             report rp = new report(win);
-            rp.id = "1";
+
+            // Set unique ID for the daily report
+            rp.id = dailyReportId.ToString();
+
+
+
             rp.title = "Daily Report";
             rp.subtitle = "Please fill out what you have done in the provided time frame";
-            rp.input = "";
-            reportPnaelView.Children.Add(rp);
-
+            rp.input = ""; // Input field for the user
+            reportPnaelView.Children.Add(rp); // Add to the report panel
         }
 
         private void addreportHourly(MainWindow win)
         {
             reportView.Content = reportPnaelView;
             report rp = new report(win);
-            rp.id = "1";
+
+            // Set unique ID for the hourly report
+            rp.id = hourlyReportId.ToString();
+
+            // Increment the hourly report ID for the next report
+            hourlyReportId++;
+
             rp.title = "Hour Report";
             rp.subtitle = "Please fill out what you have done in the provided time frame";
-            rp.input = "";
-            reportPnaelView.Children.Add(rp);
-
+            rp.input = ""; // Input field for the user
+            reportPnaelView.Children.Add(rp); // Add to the report panel
         }
+
 
 
         private async void breakOut_click(object sender, RoutedEventArgs e)
@@ -638,11 +653,15 @@ namespace _2pm_Desktop
             reportView.ScrollToHorizontalOffset(reportView.HorizontalOffset + 250);
         }
 
-        private void done(object sender, RoutedEventArgs e)
+        private async void done(object sender, RoutedEventArgs e)
         {
+            // Switch back to home screen and hide report screen
             homeScreen.Visibility = Visibility.Visible;
             reportScreen.Visibility = Visibility.Hidden;
 
+            // Call the function to upload the form data
+            await requestEngine.UploadReportData(this);
+            reportPnaelView.Children.Clear();
         }
     }
 }

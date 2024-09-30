@@ -35,5 +35,10 @@ namespace _2pm_Desktop.view
 
         }
 
+        private void getDataSave(object sender, MouseEventArgs e)
+        {
+            this.input = datainput.Text;
+            System.Diagnostics.Debug.WriteLine(this.input);
+        }
     }
 }

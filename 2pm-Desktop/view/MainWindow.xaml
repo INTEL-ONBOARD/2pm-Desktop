@@ -400,7 +400,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
         Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
         Foreground="{x:Null}" Width="110" Height="101" Click="punchIn_click">
                         <Button.Background>
-                            <SolidColorBrush Color="#FF02A99D" Opacity="1"/>
+                            <SolidColorBrush Color="White" Opacity="0.1"/>
                         </Button.Background>
 
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -579,16 +579,19 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                     </Rectangle>
 
 
-                    <Button x:Name="settingBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,88,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}"  Click="goSettings">
+                    <Button x:Name="settingBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,263,70,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}"  Click="goSettings">
                         <Image Source="/view/settings.png" />
                     </Button>
 
-                    <Button x:Name="infoBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,60,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" Background="{x:Null}" Click="goInfo">
+                    <Button x:Name="infoBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,263,42,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" Background="{x:Null}" Click="goInfo">
                         <Image Source="/view/info.png" />
                     </Button>
 
-                    <Button x:Name="logoutBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,30,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickLogout" >
+                    <Button x:Name="logoutBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,263,12,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickLogout" >
                         <Image Source="/view/exit.png" />
+                    </Button>
+                    <Button x:Name="userBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,263,99,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}"  Click="gouser">
+                        <Image Source="/view/profile-candidate.png" />
                     </Button>
 
                 </Grid>
@@ -598,6 +601,101 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         <SolidColorBrush Color="#FFC82222" Opacity="0"/>
                     </Grid.Background>
                     <Label Content="Settings" HorizontalAlignment="Center" Margin="0,16,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontWeight="Bold" Foreground="White" FontSize="36"/>
+
+                    <Label Content="Run on Startup" HorizontalAlignment="Left" Margin="16,88,0,0" VerticalAlignment="Top" Foreground="#FF8A8A8A" FontSize="11" FontWeight="Thin" Background="{x:Null}"/>
+                    <Label Content="Save My login credentials" HorizontalAlignment="Left" Margin="16,118,0,0" VerticalAlignment="Top" Foreground="#FF8A8A8A" FontSize="11" FontWeight="Thin" Background="{x:Null}"/>
+                    <ToggleButton x:Name="issale_Copy" Cursor="Hand" Content="" IsChecked="False" Height="30" VerticalAlignment="Top" Margin="179,119,0,0" HorizontalAlignment="Left" Width="68" Checked="issale_Checked">
+                        <ToggleButton.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ToggleButton.RenderTransform>
+                        <ToggleButton.Style>
+                            <Style TargetType="{x:Type ToggleButton}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                            <Grid>
+                                                <Border x:Name="SwitchTrack" Background="{x:Null}" BorderThickness="1" BorderBrush="#BDBDBD" CornerRadius="8" Margin="6,2,20,12">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <Ellipse x:Name="SwitchThumb" Fill="White" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" Stroke="#BDBDBD">
+                                                    <Ellipse.RenderTransform>
+                                                        <TranslateTransform x:Name="ThumbTransform"/>
+                                                    </Ellipse.RenderTransform>
+                                                </Ellipse>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="SwitchTrack" Property="Background"  Value="#BDBDBD" />
+
+                                                    <Setter TargetName="SwitchThumb" Property="RenderTransform" >
+                                                        <Setter.Value>
+                                                            <TranslateTransform X="25"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+                    <ToggleButton x:Name="issale_Copy1" Cursor="Hand" Content="" IsChecked="False" Height="30" VerticalAlignment="Top" Margin="179,92,0,0" HorizontalAlignment="Left" Width="68" Checked="issale_Checked">
+                        <ToggleButton.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ToggleButton.RenderTransform>
+                        <ToggleButton.Style>
+                            <Style TargetType="{x:Type ToggleButton}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                            <Grid>
+                                                <Border x:Name="SwitchTrack" Background="{x:Null}" BorderThickness="1" BorderBrush="#BDBDBD" CornerRadius="8" Margin="6,2,20,12">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <Ellipse x:Name="SwitchThumb" Fill="White" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" Stroke="#BDBDBD">
+                                                    <Ellipse.RenderTransform>
+                                                        <TranslateTransform x:Name="ThumbTransform"/>
+                                                    </Ellipse.RenderTransform>
+                                                </Ellipse>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="SwitchTrack" Property="Background"  Value="#BDBDBD" />
+
+                                                    <Setter TargetName="SwitchThumb" Property="RenderTransform" >
+                                                        <Setter.Value>
+                                                            <TranslateTransform X="25"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+                    <Button x:Name="backHome" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,28,212,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="30" Height="29" Background="{x:Null}" Click="clickBackHome" Opacity="0.197">
+                        <Image Source="/view/back.png" />
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="userScreen" Margin="23,36,23,29" Visibility="Hidden">
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FFC82222" Opacity="0"/>
+                    </Grid.Background>
+                    <Label Content="Profile" HorizontalAlignment="Center" Margin="0,16,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" FontWeight="Bold" Foreground="White" FontSize="36"/>
                     <Image HorizontalAlignment="Left" Height="47" Margin="48,82,0,0" VerticalAlignment="Top" Width="48" Source="/view/user.png"/>
                     <Label Content="Username" HorizontalAlignment="Left" Margin="100,82,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18"/>
                     <Label Content="Department" HorizontalAlignment="Left" Margin="100,104,0,0" VerticalAlignment="Top" Foreground="#FF8A8A8A" FontSize="11" FontWeight="Thin" Background="{x:Null}"/>
@@ -614,91 +712,10 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                     <Button x:Name="openProfile_Copy1" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,213,28,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="18" Height="17" Background="{x:Null}" Click="clickExit" Opacity="0.4">
                         <Image Source="/view/expand-arrows.png" />
                     </Button>
-                    <Label Content="Run on Startup" HorizontalAlignment="Left" Margin="24,244,0,0" VerticalAlignment="Top" Foreground="#FF8A8A8A" FontSize="11" FontWeight="Thin" Background="{x:Null}"/>
-                    <Label Content="Save My login credentials" HorizontalAlignment="Left" Margin="24,274,0,0" VerticalAlignment="Top" Foreground="#FF8A8A8A" FontSize="11" FontWeight="Thin" Background="{x:Null}"/>
-                    <ToggleButton x:Name="issale_Copy" Cursor="Hand" Content="" IsChecked="False" Height="30" VerticalAlignment="Top" Margin="187,275,0,0" HorizontalAlignment="Left" Width="68" Checked="issale_Checked">
-                        <ToggleButton.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ToggleButton.RenderTransform>
-                        <ToggleButton.Style>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Grid>
-                                                <Border x:Name="SwitchTrack" Background="{x:Null}" BorderThickness="1" BorderBrush="#BDBDBD" CornerRadius="8" Margin="6,2,20,12">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
-                                                <Ellipse x:Name="SwitchThumb" Fill="White" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" Stroke="#BDBDBD">
-                                                    <Ellipse.RenderTransform>
-                                                        <TranslateTransform x:Name="ThumbTransform"/>
-                                                    </Ellipse.RenderTransform>
-                                                </Ellipse>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="SwitchTrack" Property="Background"  Value="#BDBDBD" />
 
-                                                    <Setter TargetName="SwitchThumb" Property="RenderTransform" >
-                                                        <Setter.Value>
-                                                            <TranslateTransform X="25"/>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
-                    <ToggleButton x:Name="issale_Copy1" Cursor="Hand" Content="" IsChecked="False" Height="30" VerticalAlignment="Top" Margin="187,248,0,0" HorizontalAlignment="Left" Width="68" Checked="issale_Checked">
-                        <ToggleButton.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ToggleButton.RenderTransform>
-                        <ToggleButton.Style>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Grid>
-                                                <Border x:Name="SwitchTrack" Background="{x:Null}" BorderThickness="1" BorderBrush="#BDBDBD" CornerRadius="8" Margin="6,2,20,12">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
-                                                <Ellipse x:Name="SwitchThumb" Fill="White" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" RenderTransformOrigin="0.5,0.5" Stroke="#BDBDBD">
-                                                    <Ellipse.RenderTransform>
-                                                        <TranslateTransform x:Name="ThumbTransform"/>
-                                                    </Ellipse.RenderTransform>
-                                                </Ellipse>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="SwitchTrack" Property="Background"  Value="#BDBDBD" />
 
-                                                    <Setter TargetName="SwitchThumb" Property="RenderTransform" >
-                                                        <Setter.Value>
-                                                            <TranslateTransform X="25"/>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
-                    <Button x:Name="backHome" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,28,212,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="30" Height="29" Background="{x:Null}" Click="clickExit" Opacity="0.197">
+
+                    <Button x:Name="backHomes" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,28,212,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="30" Height="29" Background="{x:Null}" Click="clickBackHome2" Opacity="0.197">
                         <Image Source="/view/back.png" />
                     </Button>
                 </Grid>

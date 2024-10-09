@@ -319,6 +319,8 @@ namespace _2pm_Desktop
 
                 loginScreen.Visibility = Visibility.Visible;
                 homeScreen.Visibility = Visibility.Hidden;
+                userScreen.Visibility = Visibility.Hidden;
+
             }
             else
             {
@@ -748,6 +750,37 @@ namespace _2pm_Desktop
             homeScreen.Visibility = Visibility.Visible;
             reportScreen.Visibility = Visibility.Hidden;
             loginScreen.Visibility = Visibility.Hidden;
+            userScreen.Visibility = Visibility.Hidden;
+        }
+
+        private void gouser(object sender, RoutedEventArgs e)
+        {
+            defaultScreen.Visibility = Visibility.Hidden;
+            settingScreen.Visibility = Visibility.Hidden;
+            homeScreen.Visibility = Visibility.Hidden;
+            reportScreen.Visibility = Visibility.Hidden;
+            loginScreen.Visibility = Visibility.Hidden;
+            userScreen.Visibility = Visibility.Visible;
+        }
+
+        private void clickBackHome(object sender, RoutedEventArgs e)
+        {
+            defaultScreen.Visibility = Visibility.Hidden;
+            settingScreen.Visibility = Visibility.Hidden;
+            homeScreen.Visibility = Visibility.Visible;
+            reportScreen.Visibility = Visibility.Hidden;
+            loginScreen.Visibility = Visibility.Hidden;
+            userScreen.Visibility = Visibility.Hidden;
+        }
+
+        private void clickBackHome2(object sender, RoutedEventArgs e)
+        {
+            defaultScreen.Visibility = Visibility.Hidden;
+            settingScreen.Visibility = Visibility.Hidden;
+            homeScreen.Visibility = Visibility.Visible;
+            reportScreen.Visibility = Visibility.Hidden;
+            loginScreen.Visibility = Visibility.Hidden;
+            userScreen.Visibility = Visibility.Hidden;
         }
     }
 }

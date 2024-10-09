@@ -239,6 +239,12 @@ namespace _2pm_Desktop
                 loginScreen.Visibility = Visibility.Hidden;
                 defaultScreen.Visibility = Visibility.Hidden;
                 status.Content = "";
+
+                play.Visibility = Visibility.Visible;
+                pause.Visibility = Visibility.Hidden;
+                resume.Visibility = Visibility.Hidden;
+                stop.Visibility = Visibility.Hidden;
+
                 homeScreen.Visibility = Visibility.Visible;
 
                 _isReportRequired = await model.requestEngine.IsUserInDepartmentAsync();
@@ -322,10 +328,11 @@ namespace _2pm_Desktop
 
         private async void punchIn_click(object sender, RoutedEventArgs e)
         {
-            play.IsEnabled = false;
-            pause.IsEnabled = true;
-            resume.IsEnabled = false;
-            stop.IsEnabled = true;
+            play.Visibility = Visibility.Hidden;
+            pause.Visibility = Visibility.Visible;
+            resume.Visibility = Visibility.Hidden;
+            stop.Visibility = Visibility.Visible;
+
             play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
             pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
@@ -350,10 +357,16 @@ namespace _2pm_Desktop
 
         private async void breakIn_click(object sender, RoutedEventArgs e)
         {
-            play.IsEnabled = false;
-            pause.IsEnabled = false;
-            resume.IsEnabled = true;
-            stop.IsEnabled = true;
+            //play.IsEnabled = false;
+            //pause.IsEnabled = false;
+            //resume.IsEnabled = true;
+            //stop.IsEnabled = true;
+
+            play.Visibility = Visibility.Hidden;
+            pause.Visibility = Visibility.Hidden;
+            resume.Visibility = Visibility.Visible;
+            stop.Visibility = Visibility.Hidden;
+
             play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
             pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
             resume.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
@@ -372,10 +385,17 @@ namespace _2pm_Desktop
 
         private async void punchOut_click(object sender, RoutedEventArgs e)
         {
-            play.IsEnabled = true;
-            pause.IsEnabled = false;
-            resume.IsEnabled = false;
-            stop.IsEnabled = false;
+            //play.IsEnabled = true;
+            //pause.IsEnabled = false;
+            //resume.IsEnabled = false;
+            //stop.IsEnabled = false;
+
+            play.Visibility = Visibility.Visible;
+            pause.Visibility = Visibility.Hidden;
+            resume.Visibility = Visibility.Hidden;
+            stop.Visibility = Visibility.Hidden;
+
+
             play.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255));
             pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
             resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
@@ -454,10 +474,16 @@ namespace _2pm_Desktop
 
         private async void breakOut_click(object sender, RoutedEventArgs e)
         {
-            play.IsEnabled = false;
-            pause.IsEnabled = true;
-            resume.IsEnabled = false;
-            stop.IsEnabled = true;
+            //play.IsEnabled = false;
+            //pause.IsEnabled = true;
+            //resume.IsEnabled = false;
+            //stop.IsEnabled = true;
+
+            play.Visibility = Visibility.Hidden;
+            pause.Visibility = Visibility.Visible;
+            resume.Visibility = Visibility.Hidden;
+            stop.Visibility = Visibility.Visible;
+
             play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
             pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255

@@ -29,9 +29,13 @@
     <None Remove="view\logo.png" />
     <None Remove="view\next.png" />
     <None Remove="view\pause.png" />
+    <None Remove="view\pause_.png" />
     <None Remove="view\play.png" />
+    <None Remove="view\play_.png" />
+    <None Remove="view\RESUME.png" />
     <None Remove="view\settings.png" />
     <None Remove="view\stop.png" />
+    <None Remove="view\stop_.png" />
     <None Remove="view\Top Nah.png" />
     <None Remove="view\user.png" />
   </ItemGroup>
@@ -64,10 +68,11 @@
     <Resource Include="view\loading.gif" />
     <Resource Include="view\logo.png" />
     <Resource Include="view\next.png" />
-    <Resource Include="view\pause.png" />
-    <Resource Include="view\play.png" />
+    <Resource Include="view\pause_.png" />
+    <Resource Include="view\play_.png" />
+    <Resource Include="view\RESUME.png" />
     <Resource Include="view\settings.png" />
-    <Resource Include="view\stop.png" />
+    <Resource Include="view\stop_.png" />
     <Resource Include="view\Top Nah.png" />
     <Resource Include="view\user.png" />
   </ItemGroup>

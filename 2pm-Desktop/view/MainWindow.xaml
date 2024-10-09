@@ -396,15 +396,15 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                 <Grid x:Name="homeScreen" Margin="23,36,23,29" Visibility="Hidden">
 
                     <Button x:Name="play" Style="{StaticResource btncutsomstylePlain}" 
-        HorizontalAlignment="Right" Margin="0,16,134,0" 
+        HorizontalAlignment="Center" Margin="0,82,0,0" 
         Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
         Foreground="{x:Null}" Width="110" Height="101" Click="punchIn_click">
                         <Button.Background>
-                            <SolidColorBrush Color="White" Opacity="0.3"/>
+                            <SolidColorBrush Color="#FF02A99D" Opacity="1"/>
                         </Button.Background>
 
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image Source="/view/play.png" Stretch="UniformToFill" Height="51" Width="48" RenderTransformOrigin="0.5,0.5" >
+                            <Image Source="/view/play_.png" Stretch="UniformToFill" Height="51" Width="48" RenderTransformOrigin="0.5,0.5" >
                                 <Image.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -423,14 +423,14 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         </StackPanel>
                     </Button>
                     <Button x:Name="pause" Style="{StaticResource btncutsomstylePlain}" 
-        HorizontalAlignment="Right" Margin="0,16,15,0" 
+        HorizontalAlignment="Right" Margin="0,82,136,0" 
         Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
-        Foreground="{x:Null}" Width="110" Height="101" IsEnabled="False" Click="breakIn_click">
+        Foreground="{x:Null}" Width="110" Height="101"  Click="breakIn_click">
                         <Button.Background>
-                            <SolidColorBrush Color="White" Opacity="0.1"/>
+                            <SolidColorBrush Color="#FFFFA21D" Opacity="0.975"/>
                         </Button.Background>
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image Source="/view/pause.png" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
+                            <Image Source="/view/pause_.png" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -450,14 +450,14 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                     </Button>
 
                     <Button x:Name="resume" Style="{StaticResource btncutsomstylePlain}" 
-        HorizontalAlignment="Right" Margin="0,125,134,0" 
+        HorizontalAlignment="Center" Margin="0,82,0,0" 
         Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
-        Foreground="{x:Null}" Width="110" Height="101" IsEnabled="False" Click="breakOut_click">
+        Foreground="{x:Null}" Width="110" Height="101"  Click="breakOut_click">
                         <Button.Background>
-                            <SolidColorBrush Color="White" Opacity="0.1"/>
+                            <SolidColorBrush Color="#FFD06A3B" Opacity="1"/>
                         </Button.Background>
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image Source="/view/next.png" Stretch="Fill" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
+                            <Image Source="/view/RESUME.png" Stretch="Fill" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -477,14 +477,14 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                     </Button>
 
                     <Button x:Name="stop" Style="{StaticResource btncutsomstylePlain}" 
-        HorizontalAlignment="Right" Margin="0,125,15,0" 
+        HorizontalAlignment="Right" Margin="0,82,10,0" 
         Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" 
-        Foreground="{x:Null}" Width="110" Height="101" IsEnabled="False" Click="punchOut_click">
+        Foreground="{x:Null}" Width="110" Height="101"  Click="punchOut_click">
                         <Button.Background>
-                            <SolidColorBrush Color="White" Opacity="0.1"/>
+                            <SolidColorBrush Color="#FFEA4D4D" Opacity="1"/>
                         </Button.Background>
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image Source="/view/stop.png" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
+                            <Image Source="/view/stop_.png" Height="51" Width="48" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -702,7 +702,7 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                         <Image Source="/view/back.png" />
                     </Button>
                 </Grid>
-                
+
                 <Grid x:Name="reportScreen" Margin="23,36,23,29" Visibility="Hidden">
 
 

@@ -94,7 +94,7 @@ namespace _2pm_Desktop
                 try
                 {
                     Ping myPing = new Ping();
-                    string host = "www.nibmworldwide.com";
+                    string host = "www.google.com";
                     PingReply reply = myPing.Send(host, 1000);
                     if (reply.Status == IPStatus.Success)
                     {
@@ -456,7 +456,7 @@ namespace _2pm_Desktop
         {
             play.IsEnabled = false;
             pause.IsEnabled = true;
-            resume.IsEnabled = true;
+            resume.IsEnabled = false;
             stop.IsEnabled = true;
             play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
             pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
@@ -703,6 +703,26 @@ namespace _2pm_Desktop
             }
         }
 
+
+
+
+        private void goSettings(object sender, RoutedEventArgs e)
+        {
+            defaultScreen.Visibility = Visibility.Hidden;
+            settingScreen.Visibility = Visibility.Visible;
+            homeScreen.Visibility = Visibility.Hidden;
+            reportScreen.Visibility = Visibility.Hidden;
+            loginScreen.Visibility = Visibility.Hidden;
+        }
+
+        private void goInfo(object sender, RoutedEventArgs e)
+        {
+            defaultScreen.Visibility = Visibility.Hidden;
+            settingScreen.Visibility = Visibility.Hidden;
+            homeScreen.Visibility = Visibility.Visible;
+            reportScreen.Visibility = Visibility.Hidden;
+            loginScreen.Visibility = Visibility.Hidden;
+        }
     }
 }
 

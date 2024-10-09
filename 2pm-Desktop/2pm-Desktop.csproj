@@ -7,9 +7,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>icon_aY4_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="icon_aY4_icon.ico" />
     <None Remove="view\076.png" />
     <None Remove="view\077.png" />
     <None Remove="view\1484.gif" />
@@ -35,12 +37,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="icon_aY4_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icon_aY4_icon.ico" />
     <Resource Include="view\076.png" />
     <Resource Include="view\077.png" />
     <Resource Include="view\1484.gif" />

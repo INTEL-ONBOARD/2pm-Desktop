@@ -38,10 +38,11 @@ namespace _2pm_Desktop.view
 
         private void getDataSave(object sender, MouseEventArgs e)
         {
-            window.status.Content = "";
+
             if (datainput.Text.Length > 50)
             {
                 this.input = datainput.Text;
+                
             }
 
             if (datainput.Text.Length == 0)

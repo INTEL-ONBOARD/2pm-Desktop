@@ -579,15 +579,15 @@ Style="{StaticResource pwdCustomStyle}" Foreground="#FFACACAC" Padding="0,0,0,10
                     </Rectangle>
 
 
-                    <Button x:Name="settingBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,88,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickExit">
+                    <Button x:Name="settingBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,88,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}"  Click="goSettings">
                         <Image Source="/view/settings.png" />
                     </Button>
 
-                    <Button x:Name="infoBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,60,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" Background="{x:Null}" Click="clickExit">
+                    <Button x:Name="infoBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,60,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" Background="{x:Null}" Click="goInfo">
                         <Image Source="/view/info.png" />
                     </Button>
 
-                    <Button x:Name="logoutBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,30,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickLogout">
+                    <Button x:Name="logoutBtn" Style="{StaticResource btncutsomstylePlain}" HorizontalAlignment="Right" Margin="0,264,30,0" Cursor="Hand" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="20" Background="{x:Null}" Click="clickLogout" >
                         <Image Source="/view/exit.png" />
                     </Button>
 

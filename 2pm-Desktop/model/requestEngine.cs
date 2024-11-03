@@ -346,8 +346,6 @@ namespace _2pm_Desktop.model
             }
         }
 
-
-
         public static async Task<string> UploadReportData(MainWindow win)
             {
                 using (HttpClient client = new HttpClient())

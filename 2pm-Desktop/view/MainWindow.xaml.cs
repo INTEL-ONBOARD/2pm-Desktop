@@ -335,10 +335,10 @@ namespace _2pm_Desktop
             resume.Visibility = Visibility.Hidden;
             stop.Visibility = Visibility.Visible;
 
-            play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            //play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            //pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            //resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            //stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Green);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Recording";
@@ -369,10 +369,10 @@ namespace _2pm_Desktop
             resume.Visibility = Visibility.Visible;
             stop.Visibility = Visibility.Hidden;
 
-            play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            //play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            //pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            //resume.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            //stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Yellow);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Paused";
@@ -398,10 +398,10 @@ namespace _2pm_Desktop
             stop.Visibility = Visibility.Hidden;
 
 
-            play.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255));
-            pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
-            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
-            stop.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
+            //play.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255));
+            //pause.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
+            //resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
+            //stop.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255));
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Gray);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Stopped";
@@ -486,10 +486,10 @@ namespace _2pm_Desktop
             resume.Visibility = Visibility.Hidden;
             stop.Visibility = Visibility.Visible;
 
-            play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
-            pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
-            resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
-            stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            //play.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 77 is 0.3 * 255
+            //pause.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
+            //resume.Background = new SolidColorBrush(MediaColor.FromArgb(26, 255, 255, 255)); // 26 is 0.1 * 255
+            //stop.Background = new SolidColorBrush(MediaColor.FromArgb(77, 255, 255, 255)); // 26 is 0.1 * 255
             BlinkingEllipse.Fill = new SolidColorBrush(Colors.Green);
             BlinkingEllipse.Visibility = Visibility.Visible;
             subtile.Content = "Recording";

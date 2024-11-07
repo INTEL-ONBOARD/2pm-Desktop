@@ -781,6 +781,7 @@ namespace _2pm_Desktop
             reportScreen.Visibility = Visibility.Hidden;
             loginScreen.Visibility = Visibility.Hidden;
             userScreen.Visibility = Visibility.Hidden;
+            ; ; ; ; ; ; ; ; ;
         }
     }
 }
@@ -794,3 +795,4 @@ namespace _2pm_Desktop
 //        "RunInBackground": true
 //    }
 //}
+
